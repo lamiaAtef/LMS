@@ -1,4 +1,3 @@
-import React from 'react'
 import { useForm } from 'react-hook-form';
 import { FaKey, FaUserPlus, FaUserTie } from 'react-icons/fa'
 import { MdEmail } from 'react-icons/md';
