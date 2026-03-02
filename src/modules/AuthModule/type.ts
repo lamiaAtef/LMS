@@ -7,6 +7,15 @@ export interface LoginPayload{
 }
 export interface ForgetPayload{
     email:string;
+  
+    
+
+}
+export interface ResetPayload{
+    email:string;
+      otp:string;
+    password:string;
+    confirmPassword:string
     
 
 }
