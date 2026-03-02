@@ -7,7 +7,7 @@ import { CONFIRM_PASSWORD_VALIDATION, PASSWORD_VALIDATION } from '../../../../co
 import { ClipLoader } from 'react-spinners';
 import { GrStatusGood } from 'react-icons/gr';
 import { useNavigate } from 'react-router-dom';
-import type { ChangePasswordPayload } from '../../type.ts';
+import type { ChangePasswordPayload, FailedResponse, SuccessChangePassword } from '../../type.ts';
 import { axiosInstance } from '../../../../config/httpClient';
 import { AUTH_URLS } from '../../../../config/api.endPoint';
 
@@ -32,12 +32,12 @@ export default function ChangePassword() {
     setLoading(true)
     const{confirm,...payload} = data;
     try{
-      let response = await axiosInstance.post(AUTH_URLS.CHANGE_PASSWORD,payload);
+      let response = await axiosInstance.post<SuccessChangePassword>(AUTH_URLS.CHANGE_PASSWORD,payload);
       toast.success(response.data.message)
       navigate("/login")
     }
     catch(error:any){
-      const errResponse = error.response?.data ;
+      const errResponse = error.response?.data as FailedResponse ;
       toast.error(errResponse?.message || "Something went wrong")
     }
     finally{

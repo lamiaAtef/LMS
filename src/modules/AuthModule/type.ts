@@ -1,3 +1,16 @@
+//  GENERAL INTERFACE  ==> FailedResponse
+export interface FailedResponse{
+     message: string;
+     timestamp: string;
+}
+export interface UserProfile {
+  _id: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  status: "active" | "inactive"; 
+  role: "Instructor" | "Student";
+}
 // login interfaces
 export interface LoginPayload{
     email:string;
@@ -16,20 +29,9 @@ export interface AuthData {
   profile: UserProfile;
 }
 
-export interface UserProfile {
-  _id: string;
-  first_name: string;
-  last_name: string;
-  email: string;
-  status: "active" | "inactive"; 
-  role: "Instructor" | "Student";
-}
-    // error login case interface 
 
-export interface FailedLoginResponse{
-     message: string;
-     timestamp: string;
-}
+  // error login case interface  IN FailedResponse
+
 // end login interfaces
 
 // start Change_Passsword  interfaces
@@ -39,4 +41,8 @@ export interface ChangePasswordPayload{
     confirm:string;
 
 }
-// end Change_Passsword  interfaces
+export interface SuccessChangePassword{
+  message:string;
+  data:UserProfile;
+}
+// end Change_Passsword  interfaces ==> FailedResponse USED IN CHANGEpASSWORD FAILURE RESPONSE

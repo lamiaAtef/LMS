@@ -12,7 +12,7 @@ import { useDispatch } from 'react-redux';
 import { setCredentials } from '../../../../redux/authSlice';
 import { EMAIL_VALIDATION, PASSWORD_VALIDATION } from '../../../../config/validation.ts';
 import { ClipLoader} from "react-spinners";
-import type { FailedLoginResponse, LoginPayload, SuccessLoginResponse } from '../../type.ts';
+import type { FailedResponse, LoginPayload, SuccessLoginResponse } from '../../type.ts';
 
 export default function Login() {
    const {
@@ -33,14 +33,14 @@ export default function Login() {
     try{
         let response = await axiosInstance.post<SuccessLoginResponse>(AUTH_URLS.LOGIN,data)
         localStorage.setItem("token",response.data.data.accessToken);
-        dispatch(setCredentials({ token: response.data.data.accessToken }));
+        dispatch(setCredentials({token: response.data.data.accessToken }));
         navigate("/instractor/home")
         toast.success(response?.data?.message)
              
         
     }
     catch(error:any){
-      const errResponse = error.response?.data as FailedLoginResponse;
+      const errResponse = error.response?.data as FailedResponse;
         toast.error(errResponse?.message || "Something went wrong")
 
     }
