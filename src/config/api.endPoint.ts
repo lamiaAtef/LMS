@@ -10,5 +10,6 @@ export const AUTH_URLS = {
     FORGET_PASSWORD : `/api/auth/forgot-password`,
     RESET_PASSWORD :   `/api/auth/reset-password` ,
     CHANGE_PASSWORD : `/api/auth/change-password`,
+    LOGOUT : `/api/auth/logout`,    
 
 }
