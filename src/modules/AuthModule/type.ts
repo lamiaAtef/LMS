@@ -1,7 +1,13 @@
 // login interfaces
+
 export interface LoginPayload{
     email:string;
     password:string;
+
+}
+export interface ForgetPayload{
+    email:string;
+    
 
 }
     // success login case interface 
