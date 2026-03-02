@@ -1,4 +1,3 @@
-import axios from "axios";
 
 export const baseURL=`https://upskilling-egypt.com:3005`;
 export const imgBaseURL='';

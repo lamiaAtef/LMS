@@ -134,7 +134,7 @@ export default function Login() {
           <p>Forgot password? <Link to="/forget-pass" className='text-[#C5D86D]' >click here</Link></p>
 
         </div>
-    </form>
+      </form>
       {/* end Form */}
     </>
   )

@@ -31,3 +31,12 @@ export interface FailedLoginResponse{
      timestamp: string;
 }
 // end login interfaces
+
+// start Change_Passsword  interfaces
+export interface ChangePasswordPayload{
+    password:string;
+    password_new:string;
+    confirm:string;
+
+}
+// end Change_Passsword  interfaces
