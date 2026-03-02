@@ -12,9 +12,24 @@ export interface UserProfile {
   role: "Instructor" | "Student";
 }
 // login interfaces
+
 export interface LoginPayload{
     email:string;
     password:string;
+
+}
+export interface ForgetPayload{
+    email:string;
+  
+    
+
+}
+export interface ResetPayload{
+    email:string;
+      otp:string;
+    password:string;
+    confirmPassword:string
+    
 
 }
     // success login case interface 
