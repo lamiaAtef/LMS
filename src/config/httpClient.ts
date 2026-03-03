@@ -17,18 +17,34 @@ axiosInstance.interceptors.request.use(
     (error)=>Promise.reject(error)
 )
 axiosInstance.interceptors.response.use(
-    (response)=>response,
-    (error)=>{
-        const status=error.response?.status;
-        if(status==401){
-            // AuthService.handelUnauthorization(error)
-            // ممكن هنا تستدعي logout
+  (response) => response,
+  async (error) => {
+    const originalRequest = error.config;
 
-        }
-         return Promise.reject(error);
- 
-        
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+
+      try {
+        const refreshToken = localStorage.getItem("refreshToken");
+        // i havn't any refresh api 
+        // const res = await axios.post("/refresh-token", {
+        //   refreshToken,
+        // });
+
+        //const newAccessToken = res.data.accessToken;
+
+        //localStorage.setItem("accessToken", newAccessToken);
+
+        //originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+
+        return axiosInstance(originalRequest);
+      } catch (err) {
+        localStorage.clear();
+        window.location.href = "/login";
+      }
     }
-    
-)
+
+    return Promise.reject(error);
+  }
+);
 export  {axiosInstance};
