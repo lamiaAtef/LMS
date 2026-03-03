@@ -130,7 +130,7 @@ export default function Login() {
   ) : (
     <GrStatusGood color="#000" size="20px" />
   )}
-</button>
+        </button>
           <p>Forgot password? <Link to="/forget-pass" className='text-[#C5D86D]' >click here</Link></p>
 
         </div>

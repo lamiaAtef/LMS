@@ -46,12 +46,16 @@ export const CONFIRM_PASSWORD_VALIDATION = (password: string) => ({
   validate: (value: string) =>
     value === password || "Passwords do not match",
 });
+export const OTP_VALIDATION = {
+     required: getRequiredMessage("OTP"),
+       pattern:{
+        value:/^\d{6}$/,
+        message : "Invalid OTP"
+    }
+}
 export const ROLE_VALIDATION = {
      required: getRequiredMessage("Role"),
-      pattern:{
-         value:/ ^(Instructor|Student)$/,
-        message : "role must be one of [Instructor, Student]"
-    }
+   
 }
     
 

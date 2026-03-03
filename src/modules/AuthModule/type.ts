@@ -61,3 +61,15 @@ export interface SuccessChangePassword{
   data:UserProfile;
 }
 // end Change_Passsword  interfaces ==> FailedResponse USED IN CHANGEpASSWORD FAILURE RESPONSE
+
+// start register 
+type Role="Instructor" | "Student";
+export interface RegisterPayload{
+  first_name:string,
+  last_name:string,
+  password:string,
+  email:string,
+  role:Role,
+}
+
+// end register
