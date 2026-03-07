@@ -10,9 +10,10 @@ import ForgetPassword from "./modules/AuthModule/components/ForgetPassword/Forge
 import ResetPassword from "./modules/AuthModule/components/ResetPassword/ResetPassword";
 import ChangePassword from "./modules/AuthModule/components/ChangePassword/ChangePassword";
 import { ToastContainer } from "react-toastify";
-import Home from "./modules/InstractorModule/components/Home/Home";
 import MasterLayout from "./shared/components/MasterLayout/MasterLayout";
 import InstructorProtectedRoute from "./routes/InstructorProtectedRoute";
+import Quiz from "./modules/InstractorModule/components/Quiz/Quiz";
+import DashBoard from "./modules/InstractorModule/components/DashBoard/DashBoard";
 
 
 
@@ -37,8 +38,10 @@ const routes = createBrowserRouter(
         element:<InstructorProtectedRoute><MasterLayout/></InstructorProtectedRoute>,
         errorElement:<NotFound/>,
         children:[
-          {index:true,element:<Home/>},
-          {path:"home",element:<Home/>},
+          {index:true,element:<DashBoard/>},
+          {path:"dashboard",element:<DashBoard/>},
+          {path:"quiz" , element:<Quiz/>},
+          
          
         ]
       },
