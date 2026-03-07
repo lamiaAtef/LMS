@@ -23,6 +23,11 @@ export interface DeleteConfirmModalProps {
   onConfirm: () => void;
   onCancel: () => void;
 }
+ export interface Student {
+  _id: string;
+  first_name: string;
+  last_name: string;
+}
 
 export interface Group {
     _id: string;

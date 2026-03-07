@@ -3,15 +3,11 @@ import { FaPlusCircle, FaEdit, FaTrash } from "react-icons/fa";
 
 import { axiosInstance } from "../../../../config/httpClient";
 import { GROUPS, STUDENT } from "../../../../config/api.endPoint";
-import type { CreateGroupPayload, Group } from "../../type";
+import type { CreateGroupPayload, Group, Student } from "../../type";
 import { toast } from "react-toastify";
 import DeleteConfirmModal from "../../../../shared/components/DeleteConfirm/DeleteConfirm";
 
-interface Student {
-  _id: string;
-  first_name: string;
-  last_name: string;
-}
+
 
 export default function Groups() {
 
