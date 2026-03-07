@@ -16,6 +16,21 @@ export interface Student{
     status:string,
     group: Group
 }
+<<<<<<< HEAD
+=======
+export interface DeleteConfirmModalProps {
+  isOpen: boolean;
+  title?: string;
+  message?: string;
+  onConfirm: () => void;
+  onCancel: () => void;
+}
+ export interface Student {
+  _id: string;
+  first_name: string;
+  last_name: string;
+}
+>>>>>>> origin/feature/Mayada
 
 export interface Group {
     _id: string;
@@ -27,15 +42,27 @@ export interface Group {
     createdAt: string;
     updatedAt: string;
   }
+<<<<<<< HEAD
 
+=======
+export interface CreateGroupPayload {
+  name: string;
+  students: string[];
+}
+>>>>>>> origin/feature/Mayada
 export interface InfoCardProps {
     image: string;
     title: string;
     subtitle: string;
     status?: string;
+<<<<<<< HEAD
     numberStudents?: number;
     link: string;
     className?: string;
     linkClassName?: string;
     arrowClassName?: string;
+=======
+    link: string;
+    className?: string;
+>>>>>>> origin/feature/Mayada
   }

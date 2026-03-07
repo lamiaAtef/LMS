@@ -3,7 +3,6 @@ import type { Quiz, Student } from "../../type";
 import { axiosInstance } from "../../../../config/httpClient";
 import quizImg1 from "../../../../assets/images/QuizImg/QuizImg1.png";
 import quizImg2 from "../../../../assets/images/QuizImg/QuizImg2.png";
-// import { FaArrowCircleRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
 
@@ -13,7 +12,7 @@ import studentImg3 from "../../../../assets/images/StudentsImgs/studentImg3.jpg"
 import studentImg4 from "../../../../assets/images/StudentsImgs/studentImg4.jpg";
 import studentImg5 from "../../../../assets/images/StudentsImgs/studentImg5.jpg";
 import studentImg6 from "../../../../assets/images/StudentsImgs/studentImg6.jpg";
-import InfoCard from "../../../../shared/components/InfoCard/InfoCard";
+import InfoCard from "../../../../shared/components/InfoCard.tsx/InfoCard";
 import { QUIZ_URLS, STUDENT_URLS } from "../../../../config/api.endPoint";
 
 
@@ -85,17 +84,18 @@ export default function DashBoard() {
       ?quizzesIncoming.map((quiz, index)=>{
          const {day , time} = formatDate(quiz.schadule);
          return(
-          <InfoCard
-            key={quiz._id}
-            image={quizzesImgs[index % quizzesImgs.length]}
-            title={quiz.title}
-            subtitle={`${day} | ${time}`}
-            numberStudents={0}
-            link={"/"}
-            linkClassName="text-sm font-semibold hover:text-lime-600"
-            arrowClassName="text-lime-300"
-          />
-       
+        <div key={quiz._id} className="flex items-center border-2 border-gray-200 rounded-2xl p-2">
+          <img src={quizzesImgs[index % quizzesImgs.length]} alt="quizImg" className="w-20 h-20 rounded-lg"/>
+          <div className="flex flex-col flex-1 ml-3">
+            <h2 className="text-md font-semibold">{quiz.title}</h2>
+            <p className="text-sm text-gray-500"> {day} | {time}</p>
+            <div className="flex justify-between items-center mt-1">
+              <p className="text-sm">No. of students enrolled: 0</p>
+              <Link to="/" className="flex items-center text-sm font-semibold hover:text-lime-600">Open <FaArrowCircleRight className="text-lime-300 ml-1"/></Link>
+            </div>
+          </div>
+          
+        </div> 
          )
       }) :"nodata"}
       
@@ -112,11 +112,12 @@ export default function DashBoard() {
         key={student._id}
         image={studentsImgs[index % studentsImgs.length]}
         title={`${student.first_name} ${student.last_name}`}
-        subtitle={`Group: ${student.group.name} | Average score: ${Math.round(student.avg_score)}`}
+        subtitle={`Group: ${student.group.name} | Avg score: ${Math.round(student.avg_score)}`}
         status={student.status}
-        link={'/'}
-        arrowClassName="text-xl"
+        link="/"
+        className="hover:bg-gray-50"
       />
+
       )):"nodata"}
 
       
