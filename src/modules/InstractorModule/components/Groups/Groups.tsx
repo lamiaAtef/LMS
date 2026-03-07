@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { FaPlusCircle, FaEdit, FaTrash } from "react-icons/fa";
 
 import { axiosInstance } from "../../../../config/httpClient";
-import { GROUPS, STUDENT } from "../../../../config/api.endPoint";
+import { GROUPS_URLS, STUDENT_URLS } from "../../../../config/api.endPoint";
 import type { CreateGroupPayload, Group, Student } from "../../type";
 import { toast } from "react-toastify";
 import DeleteConfirmModal from "../../../../shared/components/DeleteConfirm/DeleteConfirm";
@@ -28,7 +28,7 @@ export default function Groups() {
 
       setLoading(true);
 
-      const response = await axiosInstance.get(GROUPS.GET_ALL);
+      const response = await axiosInstance.get(GROUPS_URLS.GET_ALL);
 
       setGroups(response.data);
 
@@ -49,7 +49,7 @@ export default function Groups() {
     try {
 
       const response = await axiosInstance.get(
-        STUDENT.GET_STUDENTS_WITHOUT_GROUP
+        STUDENT_URLS.GET_STUDENTS_WITHOUT_GROUP
       );
 
       setStudents(response.data);
@@ -71,7 +71,7 @@ export default function Groups() {
         students: groupStudents
       };
 
-      await axiosInstance.post(GROUPS.CREATE_GROUP, data);
+      await axiosInstance.post(GROUPS_URLS.CREATE_GROUP, data);
 
       toast.success("Group added successfully");
 
@@ -95,7 +95,7 @@ export default function Groups() {
     try {
 
       await axiosInstance.put(
-        GROUPS.UPDATE_GROUP(selectedGroup?._id as string),
+        GROUPS_URLS.UPDATE_GROUP(selectedGroup?._id as string),
         {
           name: groupName,
           students: groupStudents
@@ -121,7 +121,7 @@ export default function Groups() {
     try {
 
       await axiosInstance.delete(
-        GROUPS.DELETE_GROUP(selectedGroup?._id as string)
+        GROUPS_URLS.DELETE_GROUP(selectedGroup?._id as string)
       );
 
       toast.success("Group deleted");

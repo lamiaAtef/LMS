@@ -14,6 +14,7 @@ import MasterLayout from "./shared/components/MasterLayout/MasterLayout";
 import InstructorProtectedRoute from "./routes/InstructorProtectedRoute";
 import Quiz from "./modules/InstractorModule/components/Quiz/Quiz";
 import DashBoard from "./modules/InstractorModule/components/DashBoard/DashBoard";
+import Groups from "./modules/InstractorModule/components/Groups/Groups";
 
 
 
@@ -41,6 +42,8 @@ const routes = createBrowserRouter(
           {index:true,element:<DashBoard/>},
           {path:"dashboard",element:<DashBoard/>},
           {path:"quiz" , element:<Quiz/>},
+          {path:"groups" , element:<Groups/>},
+
           
          
         ]

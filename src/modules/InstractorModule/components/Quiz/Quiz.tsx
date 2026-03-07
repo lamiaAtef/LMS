@@ -100,10 +100,7 @@ export default function Quiz() {
                                     image={quizzesImgs[index % quizzesImgs.length]}
                                     title={quiz.title}
                                     subtitle={`${day} | ${time}`}
-                                    numberStudents={0}
                                     link={"/"}
-                                    linkClassName="text-sm font-semibold hover:text-lime-600"
-                                    arrowClassName="text-lime-300"
                                   />
                                
                                  )

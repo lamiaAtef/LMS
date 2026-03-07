@@ -4,7 +4,7 @@ import { axiosInstance } from "../../../../config/httpClient";
 import quizImg1 from "../../../../assets/images/QuizImg/QuizImg1.png";
 import quizImg2 from "../../../../assets/images/QuizImg/QuizImg2.png";
 import { Link } from "react-router-dom";
-import { FaArrowRight } from "react-icons/fa";
+import { FaArrowCircleRight, FaArrowRight } from "react-icons/fa";
 
 import studentImg1 from "../../../../assets/images/StudentsImgs/studentImg1.jpg";
 import studentImg2 from "../../../../assets/images/StudentsImgs/studentImg2.jpg";
