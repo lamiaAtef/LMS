@@ -44,8 +44,8 @@ setResultList(response?.data);
    <div className="bg-white p-6 rounded-xl border border-gray-200  mx-5 my-5">
   <h2 className="text-lg font-bold mb-4">Completed Quizzes</h2>
 
-  <div className="overflow-x-auto">
-    <table className="w-full text-left border-separate border-spacing-y-2 " >
+  <div className="overflow-auto relative">
+    <table className="w-full text-left  border-separate border-spacing-y-2 " >
 
       <thead className="bg-gray-900 text-white  text-sm font-thin">
         <tr>
@@ -67,7 +67,9 @@ setResultList(response?.data);
             <td className="px-4 py-3  border border-gray-300">{result.quiz.group}</td>
                <td className="px-4 py-3  border border-gray-300">lll</td>
             <td className="px-4 py-3  border border-gray-300">{result.participants.length}</td>
-            <td className="px-4 py-3 border border-gray-300">{result.quiz.schadule}</td>
+            
+            <td className="px-4 py-3 border border-gray-300">{new Date(result.quiz.schadule).toLocaleDateString()}</td>
+            {/* <td className="px-4 py-3 border border-gray-300">{result.quiz.schadule}</td> */}
             <td className="px-4 py-3 border border-gray-300  rounded-tr-lg rounded-br-lg ">
               <button className="bg-[#C5D86D]  text-black    px-4 py-1 rounded-full text-sm">
                 View
