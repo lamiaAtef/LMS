@@ -10,10 +10,10 @@ export default function Sidebar() {
   const [collapsed, setCollapsed] = useState(false);
 
   const menuItems = [
-    { icon: HiHome, label: "Dashboard",path:"/instractor" },
-    { icon: HiUser, label: "Quizzes",path:"/instractor/quizzes" },
-    { icon: FaPeopleGroup, label: "Students" ,path:"/instractor/student-list"},
-    { icon: HiDocumentText, label: "Results",path:"/instractor/result" },
+    { icon: HiHome, label: "Dashboard",path:"/instructor" },
+    { icon: HiUser, label: "Quizz",path:"/instructor/quiz" },
+    { icon: FaPeopleGroup, label: "Students" ,path:"/instructor/student-list"},
+    { icon: HiDocumentText, label: "Results",path:"/instructor/result" },
   ];
 
   return (

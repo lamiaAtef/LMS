@@ -56,7 +56,7 @@ export default function Navbar() {
             Logout
           </li>
          <li  className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-           <Link  to="/instractor/profile">
+           <Link  to="/instructor/profile">
                Profile
               </Link>
          </li>

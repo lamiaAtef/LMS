@@ -3,7 +3,7 @@ import { BsFillSafe2Fill } from "react-icons/bs";
 import { useEffect, useState } from "react";
 import { axiosInstance } from "../../../../config/httpClient";
 import { GROUPS_URLS, QUIZ_URLS } from "../../../../config/api.endPoint";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
 import quizImg1 from "../../../../assets/images/QuizImg/QuizImg1.png";
 import quizImg2 from "../../../../assets/images/QuizImg/QuizImg2.png";
@@ -37,6 +37,8 @@ export default function Quiz() {
 
   const quizzesImgs = [quizImg1, quizImg2];
 
+  const navigate = useNavigate();
+  
   const { register, handleSubmit, reset, formState: { errors } } = useForm<QuizForm>();
 
   const getUpcommingQuiz = async () => {
@@ -76,6 +78,7 @@ export default function Quiz() {
     const schadule = `${data.date}T${data.time}:00`;
     const { date, time, ...rest } = data;
     const finalData = { ...rest, schadule };
+    
 
     try {
       const response = await axiosInstance.post(QUIZ_URLS.CREATE_QUIZ, finalData);
@@ -122,7 +125,8 @@ export default function Quiz() {
           <button
             id="question_bank"
             className="outline-none bg-[#fff] cursor-pointer w-50 me-4 p-5 border-2 border-[#00000033] rounded-lg flex items-center justify-center flex-col h-40"
-          >
+            onClick={()=>navigate("/instructor/questions")}
+            >
             <BsFillSafe2Fill size={50} />
             Question Bank
           </button>

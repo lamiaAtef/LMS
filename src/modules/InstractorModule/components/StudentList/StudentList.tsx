@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react"
 import { axiosInstance } from "../../../../config/httpClient";
-import { STUDENT } from "../../../../config/api.endPoint";
 import user_img from "../../../../assets/images/student_img/user img.png"
 import { BeatLoader } from "react-spinners";
 import Pagination from "../../../../shared/components/Pagination/Pagination";
 import "./studenList.css"
+import { STUDENT_URLS } from "../../../../config/api.endPoint";
 
 
 interface StudentPayload{
@@ -33,7 +33,7 @@ export default function StudentList() {
       setLoading(true);
        try {
 
-         const response=await axiosInstance.get(STUDENT.GET_ALL_STUDENT);
+         const response=await axiosInstance.get(STUDENT_URLS.GET_ALL);
         console.log(response?.data);
         setStudentList(response?.data)
 

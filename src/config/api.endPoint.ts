@@ -53,4 +53,9 @@ export const QUIZ_URLS = {
   REASSIGN : (id:string) => `/api/quiz/reassign/${id}`,
 
 }
+
 // end Instractor module
+export const RESULT={
+    GET_ALL_RESULT:`/api/quiz/result`
+
+}
