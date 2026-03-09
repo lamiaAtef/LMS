@@ -10,7 +10,7 @@ import { store } from './redux/store.ts'
 
 
 createRoot(document.getElementById('root')!).render(
-   <Provider store={store}> 
+   <Provider store={store}>
       <StrictMode>
         <App />
       </StrictMode>

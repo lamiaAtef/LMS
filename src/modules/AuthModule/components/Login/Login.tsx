@@ -36,8 +36,8 @@ export default function Login() {
         dispatch(setCredentials({token: response.data.data.accessToken }));
         navigate("/instractor/home")
         toast.success(response?.data?.message)
-             
-        
+
+
     }
     catch(error:any){
       const errResponse = error.response?.data as FailedResponse;

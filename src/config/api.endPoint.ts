@@ -18,7 +18,7 @@ export const STUDENT_URLS = {
   GET_BY_ID : (id:string) =>`/api/student/${id}`,
   TOP_FIVE_STUDENTS:`/api/student/top-five`,
   GET_STUDENTS_WITHOUT_GROUP:`api/student/without-group`,
-
+  
 
 }
 export const GROUPS_URLS = {

@@ -13,6 +13,10 @@ export interface UserProfile {
 }
 // login interfaces
 
+//  GENERAL INTERFACE  ==> FailedResponse
+
+//login interfaces
+
 export interface LoginPayload{
     email:string;
     password:string;
@@ -21,15 +25,12 @@ export interface LoginPayload{
 export interface ForgetPayload{
     email:string;
   
-    
-
 }
 export interface ResetPayload{
     email:string;
       otp:string;
     password:string;
-    confirmPassword:string
-    
+    confirmPassword:string   
 
 }
     // success login case interface 
@@ -64,6 +65,7 @@ export interface SuccessChangePassword{
 
 // start register 
 type Role="Instructor" | "Student";
+
 export interface RegisterPayload{
   first_name:string,
   last_name:string,

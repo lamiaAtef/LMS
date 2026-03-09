@@ -71,3 +71,11 @@ export interface InfoCardProps {
       max_students: number,
   }
   export type GetGroupResponse = Group[];
+  ///question
+ export interface Question{
+  title:string,
+  description:string,
+  difficulty:"hard"|"easy",
+  _id:string
+}
+

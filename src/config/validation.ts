@@ -1,7 +1,7 @@
 
-export const getRequiredMessage = (fieldName:string):string => `${fieldName} is required` 
+export const getRequiredMessage = (fieldName:string):string => `${fieldName} is required`
 export const EMAIL_VALIDATION ={
-    
+
     required: getRequiredMessage("Email"),
     pattern:{
     value:/^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/,
@@ -9,7 +9,7 @@ export const EMAIL_VALIDATION ={
     }
 }
 export const PASSWORD_VALIDATION={
-    
+
     required:getRequiredMessage("Password"),
     minLength: {
     value: 3,
