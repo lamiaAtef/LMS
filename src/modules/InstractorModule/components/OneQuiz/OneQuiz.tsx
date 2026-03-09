@@ -10,12 +10,14 @@ import { toast } from 'react-toastify'
 import { CiClock2 } from "react-icons/ci";
 import { SlCalender } from "react-icons/sl";
 import type { Quiz } from '../../type'
+import Skeleton from 'react-loading-skeleton'
 
 
 export default function OneQuiz() {
     const{id} = useParams()
     const[quiz,setQuiz] = useState <Quiz>()
     const[loading,setLoading] = useState(false);
+    const[quizloading,setQuizLoading] = useState(false);
     const navigate = useNavigate();
     
     const [isEdit, setIsEdit] = useState(false) // this state to know if it's view or update case
@@ -28,6 +30,8 @@ export default function OneQuiz() {
             } = useForm<Quiz>();
     const getQuizById = async() =>{
        if (!id) return;
+        setQuizLoading(true);
+       
 
      try {
         const response = await axiosInstance.get(QUIZ_URLS.GET_BY_ID(id));
@@ -35,6 +39,9 @@ export default function OneQuiz() {
         reset(response.data);
       } catch (error:any) {
         toast.error(error?.response?.data?.message || "Error loading quiz");
+      }
+      finally{
+          setQuizLoading(false)
       }
     }
     const onSubmit = (data:any) =>{
@@ -109,6 +116,22 @@ export default function OneQuiz() {
              <span className='mx-3 inline-flex font-semibold'>Data structures {quiz?.title}</span>
         </div>
         <div className='border-1 border-[#0000004D] rounded-3xl w-full md:w-2/3 lg:w-1/3  p-5 my-5 flex flex-col justify-between'>
+          {quizloading? (
+            <div className="space-y-4 p-6 bg-white rounded-lg shadow-lg">
+              <Skeleton height={30} width={250} /> {/* Title */}
+              <Skeleton height={20} width={180} /> {/* Date/Time */}
+              <Skeleton height={40} width="100%" /> {/* Duration */}
+              <Skeleton height={40} width="100%" /> {/* Code */}
+              <Skeleton height={40} width="100%" /> {/* No. of questions */}
+              <Skeleton height={40} width="100%" /> {/* Score per question */}
+              <Skeleton height={100} width="100%" /> {/* Description */}
+              <div className="flex gap-4 mt-4">
+                <Skeleton height={40} width={100} /> {/* Button */}
+                <Skeleton height={40} width={100} /> {/* Button */}
+              </div>
+            </div>
+          ) : (
+            <>
           <h2 className='font-bold'>Data Structures  {quiz?.title}</h2>
           
           <form action="" onSubmit={handleSubmit(onSubmit)}>
@@ -210,7 +233,9 @@ export default function OneQuiz() {
                               
                             </button>
                           </div>
-                 </form>
+           </form>
+           </>
+       )}
 
 
         </div>

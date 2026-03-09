@@ -3,12 +3,15 @@ export interface Quiz {
     code: string,
     title:string,
     status?: "closed" | "open",
-    group: string,
+    group: {},
     schadule: string
     questions_number: number,
     description?:string,
     duration?:string,
     score_per_question?:number,
+    participants:any[],
+    type?:[],
+
 
 }
 
