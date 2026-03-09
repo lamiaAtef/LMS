@@ -17,7 +17,7 @@ export default function InfoCard({
   onClick
 }:InfoCardProps) {
   return (
-    <div className={`flex items-center border-2 border-gray-200 rounded-2xl p-2 mb-2 ${className}`}>
+    <div className={`flex items-center border-2 border-gray-200 rounded-2xl p-3 mb-2 shadow-xl ${className}`}>
       <img src={image} alt="img" className="w-20 h-20 rounded-lg" />
       <div className="flex flex-col flex-1 ml-3">
         <h2 className="text-md font-semibold capitalize">{title}</h2>

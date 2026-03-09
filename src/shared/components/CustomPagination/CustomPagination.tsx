@@ -86,8 +86,9 @@ export default function CustomPagination({
             <button
               onClick={() => onPageChange(page as number)}
               className={`
-                min-w-[40px] h-10 flex items-center justify-center rounded-lg text-sm font-medium
+                w-10 h-10  rounded-lg text-sm font-medium
                 transition-all duration-200
+                cursor-pointer
                 ${
                   currentPage === page
                     ? "bg-orange-700 text-white shadow-md"

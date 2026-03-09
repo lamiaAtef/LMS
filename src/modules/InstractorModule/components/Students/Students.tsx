@@ -13,10 +13,12 @@ import InfoCard from "../../../../shared/components/InfoCard/InfoCard";
 import { toast } from "react-toastify";
 import StudentModal from "./StudentModal";
 import CustomPagination from "../../../../shared/components/CustomPagination/CustomPagination";
+import NoData from "../../../../shared/components/NoData/NoData";
 
 
 export default function Students() {
     const [studentsList, setStudentsList] = useState<Student[]>([]);
+    const [loading, setLoading] = useState(true);
 
     // Popup to view Student
     const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
@@ -43,16 +45,41 @@ export default function Students() {
 
     const getAllStudents = async()=>{
         try {
+            setLoading(true);
             const response = await axiosInstance.get(STUDENT_URLS.GET_ALL);
-        console.log(response.data);
-        setStudentsList(response.data);
+            console.log(response.data);
+            setStudentsList(response.data);
             
         } catch (error:any) {
             toast.error(error.response?.data?.message || "Something went wrong")
             
+        }finally{
+            setLoading(false);
         }
         
     }
+
+    const StudentsSkeleton = () => {
+        return (
+          <div className="flex items-center border-2 border-gray-200 rounded-2xl p-2 mb-2 animate-pulse">
+            
+            <div className="w-20 h-20 bg-gray-300 rounded-lg"></div>
+      
+            <div className="flex flex-col flex-1 ml-3 space-y-2">
+              <div className="h-4 bg-gray-300 rounded w-1/3"></div>
+              <div className="h-3 bg-gray-300 rounded w-2/3"></div>
+      
+              <div className="flex justify-between mt-2">
+                <div className="h-3 bg-gray-300 rounded w-20"></div>
+                <div className="h-3 bg-gray-300 rounded w-10"></div>
+              </div>
+            </div>
+      
+          </div>
+        );
+      };
+
+
 
     useEffect(()=>{
         getAllStudents();
@@ -75,21 +102,27 @@ export default function Students() {
         />
 
         <div className="grid grid-cols-2 gap-4">
-            {currentStudents.length> 0?
-            currentStudents.map((student, index)=>(
-            <InfoCard key={student._id} 
-            image={studentsImgs[index % studentsImgs.length]}
-            title={`${student.first_name} ${student.last_name}`}
-            subtitle={`Group: ${student.group?.name || "No Group"} | Average score: ${Math.round(Number(student.avg_score) || 0)}`}
-            status={student.status}
-            link="#"
-            arrowClassName="text-xl" onClick={() => {
-                setSelectedStudent(student);
-                setIsModalOpen(true);
-                setStudentIndex(index);
-              }}/>
+          {loading ?(
+              Array.from({length:6}).map((_,i)=>(
+                  <StudentsSkeleton key={i}/>
+              ))
 
-            )):"nodata"}
+          )
+          :currentStudents.length> 0?
+          currentStudents.map((student, index)=>(
+          <InfoCard key={student._id} 
+          image={studentsImgs[index % studentsImgs.length]}
+          title={`${student.first_name} ${student.last_name}`}
+          subtitle={`Group: ${student.group?.name || "No Group"} | Average score: ${Math.round(Number(student.avg_score) || 0)}`}
+          status={student.status}
+          link="#"
+          arrowClassName="text-xl" onClick={() => {
+              setSelectedStudent(student);
+              setIsModalOpen(true);
+              setStudentIndex(index);
+            }}/>
+
+          )):<NoData/>}
 
 
         </div>

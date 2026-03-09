@@ -16,6 +16,7 @@ import studentImg5 from "../../../../assets/images/StudentsImgs/studentImg5.jpg"
 import studentImg6 from "../../../../assets/images/StudentsImgs/studentImg6.jpg";
 import InfoCard from "../../../../shared/components/InfoCard/InfoCard";
 import StudentModal from "../Students/StudentModal";
+import NoData from "../../../../shared/components/NoData/NoData";
 
 
 
@@ -23,6 +24,10 @@ export default function DashBoard() {
   
   const [quizzesIncoming, setQuizzesIncoming] = useState<Quiz[]>([]);
   const [topStudents, setTopStudents] = useState<Student[]>([]);
+
+  // loading
+  const [loadingQuiz, setLoadingQuiz] = useState(true);
+  const [loadingStudents, setLoadingStudents] = useState(true);
 
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -50,25 +55,51 @@ export default function DashBoard() {
 
    const getFiveIncomingQuizzes = async ()=>{
     try {
+      setLoadingQuiz(true);
       const response = await axiosInstance.get(QUIZ_URLS.FIRST_INCOMMING);
       console.log(response.data);
       setQuizzesIncoming(response.data);
       
     } catch (error) {
       console.log(error);
+    }finally{
+      setLoadingQuiz(false);
     }
    }
 
    const topFiveStudents = async()=>{
     try {
+      setLoadingStudents(true);
       const response = await axiosInstance.get(STUDENT_URLS.TOP_FIVE_STUDENTS);
       console.log(response.data)
       setTopStudents(response.data)
       
     } catch (error) {
       console.log(error);
+    }finally{
+      setLoadingStudents(false);
     }
    }
+
+   const InfoCardSkeleton = () => {
+    return (
+      <div className="flex items-center border-2 border-gray-200 rounded-2xl p-2 mb-2 animate-pulse">
+        
+        <div className="w-20 h-20 bg-gray-300 rounded-lg"></div>
+  
+        <div className="flex flex-col flex-1 ml-3 space-y-2">
+          <div className="h-4 bg-gray-300 rounded w-1/3"></div>
+          <div className="h-3 bg-gray-300 rounded w-2/3"></div>
+  
+          <div className="flex justify-between mt-2">
+            <div className="h-3 bg-gray-300 rounded w-20"></div>
+            <div className="h-3 bg-gray-300 rounded w-10"></div>
+          </div>
+        </div>
+  
+      </div>
+    );
+  };
 
    useEffect(()=>{
     getFiveIncomingQuizzes();
@@ -86,7 +117,12 @@ export default function DashBoard() {
         <h2 className="text-2xl font-bold mb-3">Upcoming 5 quizes</h2>
         <Link to="/" className="flex items-center text-md font-semibold hover:text-lime-600">Quiz directory <FaArrowRight className="text-lime-300 ml-1"/></Link>
       </div>
-      {quizzesIncoming.length>0
+      {loadingQuiz ?(
+        Array.from({length:3}).map((_, i)=>(
+          <InfoCardSkeleton key={i}/>
+        ))
+      )
+      :quizzesIncoming.length>0
       ?quizzesIncoming.map((quiz, index)=>{
          const {day , time} = formatDate(quiz.schadule);
          return(
@@ -102,7 +138,7 @@ export default function DashBoard() {
           />
        
          )
-      }) :"nodata"}
+      }) :<NoData/>}
       
     </div>
     <div className="border-2 border-gray-200 rounded-2xl p-4">
@@ -111,7 +147,12 @@ export default function DashBoard() {
         <Link to="/instractor/students" className="flex items-center text-md font-semibold hover:text-lime-600">All Students<FaArrowRight className="text-lime-300 ml-1"/></Link>
       </div>
 
-      {topStudents.length>0 ?
+      {loadingStudents ?(
+        Array.from({length:3}).map((_, i)=>(
+          <InfoCardSkeleton key={i}/>
+        ))
+      )
+      :topStudents.length>0 ?
       topStudents.map((student , index)=>(
         <InfoCard
         key={student._id}
@@ -126,7 +167,7 @@ export default function DashBoard() {
           setStudentIndex(index);
         }}/>
 
-      )):"nodata"}
+      )):<NoData/>}
 
       
     </div>
