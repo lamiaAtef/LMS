@@ -7,16 +7,15 @@ interface FieldProps {
 
 export default function InstructorInput({ label, children }: FieldProps) {
   return (
-    <div className="relative w-full">
+    <div className="flex border border-gray-300 rounded-md overflow-hidden">
 
-      {/* label badge */}
-    <span className="absolute left-1 top-1/2 -translate-y-1/2 
-      bg-[#FFEDDF] text-sm px-8 font-bold py-2 inline-block rounded-md ">
+      <span className="bg-[#FFEDDF] flex items-center text-sm px-4 py-2 border-r border-gray-300 whitespace-nowrap">
         {label}
-      
       </span>
 
-      {children}
+      <div className="flex-1">
+        {children}
+      </div>
 
     </div>
   );

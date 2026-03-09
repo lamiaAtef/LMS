@@ -40,9 +40,9 @@ export const QUESTION_URLS = {
 export const QUIZ_URLS = {
   GET_ALL : `/api/quiz`,
   GET_BY_ID : (id:string) =>`/api/quiz/${id}`,
-  CREATE_QUESTION : `/api/quiz`,
-  UPDATE_QUESTION : (id:string)=>`/api/quiz/${id}`,
-  DELETE_QUESTION : (id:string)=>`/api/quiz/${id}`,
+  CREATE_QUIZ : `/api/quiz`,
+  UPDATE_QUIZ : (id:string)=>`/api/quiz/${id}`,
+  DELETE_QUIZ : (id:string)=>`/api/quiz/${id}`,
   SEARCH : `/api/question/search`,
   JOIN: `/api/quiz/join`,
   SUBMIT :(id:string)=>  `/api/quiz/submit/${id}`,

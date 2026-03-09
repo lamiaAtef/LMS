@@ -2,9 +2,14 @@ export interface Quiz {
     _id: string,
     code: string,
     title:string,
-    status: "closed" | "open",
+    status?: "closed" | "open",
     group: string,
     schadule: string
+    questions_number: number,
+    description?:string,
+    duration?:string,
+    score_per_question?:number,
+
 }
 
 export interface Student{
@@ -48,6 +53,18 @@ export interface InfoCardProps {
     title: string;
     subtitle: string;
     status?: string;
+    numberStudents?: number;
     link: string;
     className?: string;
+    linkClassName?: string;
+    arrowClassName?: string;
   }
+  export interface Group{
+     _id: string,
+      name: string,
+      status: string,
+      instructor: string,
+      students: string[],
+      max_students: number,
+  }
+  export type GetGroupResponse = Group[];

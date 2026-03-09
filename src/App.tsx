@@ -15,6 +15,7 @@ import InstructorProtectedRoute from "./routes/InstructorProtectedRoute";
 import Quiz from "./modules/InstractorModule/components/Quiz/Quiz";
 import DashBoard from "./modules/InstractorModule/components/DashBoard/DashBoard";
 import Groups from "./modules/InstractorModule/components/Groups/Groups";
+import OneQuiz from "./modules/InstractorModule/components/OneQuiz/OneQuiz";
 
 
 
@@ -35,13 +36,14 @@ const routes = createBrowserRouter(
         ]
       },
        {
-        path:"/instractor",
+        path:"/instructor",
         element:<InstructorProtectedRoute><MasterLayout/></InstructorProtectedRoute>,
         errorElement:<NotFound/>,
         children:[
           {index:true,element:<DashBoard/>},
           {path:"dashboard",element:<DashBoard/>},
           {path:"quiz" , element:<Quiz/>},
+          {path:"quiz/:id" , element:<OneQuiz/>},
           {path:"groups" , element:<Groups/>},
 
           

@@ -18,51 +18,52 @@ export default function CustomDialog({
   onClose,
   onSubmit,
   children,
-  size = "md",
+  size = "lg",
   isLoading = false,
 }: FormModalProps) {
   return (
-    <Modal  show={isOpen} size={size} onClose={onClose} dismissible={false} className="bg-[#00000080]">
+    <Modal
+      show={isOpen}
+      size={size}
+      onClose={onClose}
+      dismissible={false}
+      className="bg-gray-500/50 backdrop-blur-sm"   
+    >
+      <ModalHeader className="flex items-center w-full ">
 
-      {/* HEADER */}
-      <div id="header" className="bg-[#fff] flex flex-row justify-between p-5 ">
+        <div className="flex  w-screen justify-between ">
 
-          <h3 className="text-lg font-semibold">
-            {title}
-          </h3>
+          <h3 className="font-semibold text-lg">{title}</h3>
 
-          <div className="flex items-center">
+          {/* push buttons to right */}
+          <div className="me-20 ">
 
-            {/* SUBMIT */}
             <button
               type="submit"
               form="shared-form"
               disabled={isLoading}
-              className="px-4 border-l-2 border-[#ccc] flex items-center justify-center "
+              className="p-2 hover:scale-110 transition"
             >
-              <HiCheck size={30} />
+              <HiCheck size={20} />
             </button>
 
-            {/* CANCEL */}
             <button
               type="button"
               onClick={onClose}
-              className="px-4 border-l-2  border-[#ccc] flex items-center justify-center "
+              className="p-2 hover:scale-110 transition"
             >
-              <HiOutlineX size={30}  />
+              <HiOutlineX size={20} />
             </button>
 
           </div>
-      </div>
 
-      {/* BODY */}
-      <ModalBody className="p-5">
+        </div>
 
-        <form
-          id="shared-form"
-          onSubmit={onSubmit}
-          className="space-y-4"
-        >
+      </ModalHeader>
+
+      <ModalBody className="bg-white">
+
+        <form id="shared-form" onSubmit={onSubmit} className="space-y-4">
           {children}
         </form>
 
