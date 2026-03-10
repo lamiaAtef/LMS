@@ -4,9 +4,9 @@
 
 
 
-export const getRequiredMessage = (fieldName:string):string => `${fieldName} is required` 
+export const getRequiredMessage = (fieldName:string):string => `${fieldName} is required`
 export const EMAIL_VALIDATION ={
-    
+
     required: getRequiredMessage("Email"),
     pattern:{
     value:/^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/,
@@ -14,17 +14,17 @@ export const EMAIL_VALIDATION ={
     }
 }
 export const PASSWORD_VALIDATION={
-    
+
     required:getRequiredMessage("Password"),
     minLength: {
     value: 6,
     message: "password must be at least 6 characters long."
     },
-    pattern:{
-        value:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/,
-        message:"Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character."
+    // pattern:{
+    //     value:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/,
+    //     message:"Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character."
 
-    }
+    // }
 }
 export const NAME_VALIDATION= {
     required:getRequiredMessage("name"),
@@ -36,11 +36,11 @@ export const NAME_VALIDATION= {
         value: 8,
         message: "User name must not exceed 8 characters"
     },
- 
+
 }
 export const PHONE_VALIDATION={
      required:getRequiredMessage("phone"),
-    
+
      pattern:{
         value:/^01[0-9]{9}$/,
         message:"Phone number must start with 01 and be 11 digits in total"

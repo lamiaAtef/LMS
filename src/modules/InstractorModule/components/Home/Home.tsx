@@ -1,5 +1,5 @@
-import type { RootState } from '@reduxjs/toolkit/query';
-import React, { useEffect } from 'react'
+
+import  { useEffect } from 'react'
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,13 +9,13 @@ export default function Home() {
   const navigate = useNavigate()
     useEffect(() => {
     if (!isAuthenticated) {
-      navigate("/"); 
+      navigate("/");
     }
   }, [isAuthenticated, navigate]);
 
   return (
     <>
-      
+     home
     </>
   )
 }
