@@ -1,4 +1,3 @@
-
 export const baseURL=`https://upskilling-egypt.com:3005`;
 export const imgBaseURL='';
 
@@ -17,8 +16,12 @@ export const STUDENT_URLS = {
   GET_ALL : `/api/student`,
   GET_BY_ID : (id:string) =>`/api/student/${id}`,
   TOP_FIVE_STUDENTS:`/api/student/top-five`,
+<<<<<<< HEAD
   GET_STUDENTS_WITHOUT_GROUP:`api/student/without-group`,
   
+=======
+
+>>>>>>> origin/heba/instructor
 
 }
 export const GROUPS_URLS = {
@@ -53,9 +56,13 @@ export const QUIZ_URLS = {
   REASSIGN : (id:string) => `/api/quiz/reassign/${id}`,
 
 }
+<<<<<<< HEAD
 
 // end Instractor module
 export const RESULT={
     GET_ALL_RESULT:`/api/quiz/result`
 
 }
+=======
+// end Instractor module
+>>>>>>> origin/heba/instructor

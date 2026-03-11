@@ -11,8 +11,6 @@ export interface Quiz {
     score_per_question?:number,
     participants:any[],
     type?:[],
-
-
 }
 
 export interface Student{
@@ -51,6 +49,7 @@ export interface CreateGroupPayload {
   name: string;
   students: string[];
 }
+
 export interface InfoCardProps {
     image: string;
     title: string;
@@ -79,3 +78,4 @@ export interface InfoCardProps {
   _id:string
 }
 
+  

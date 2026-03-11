@@ -13,13 +13,14 @@ import { ToastContainer } from "react-toastify";
 import MasterLayout from "./shared/components/MasterLayout/MasterLayout";
 import InstructorProtectedRoute from "./routes/InstructorProtectedRoute";
 import Quiz from "./modules/InstractorModule/components/Quiz/Quiz";
-import DashBoard from "./modules/InstractorModule/components/DashBoard/DashBoard";
 import Groups from "./modules/InstractorModule/components/Groups/Groups";
 import OneQuiz from "./modules/InstractorModule/components/OneQuiz/OneQuiz";
-import StudentList from "./modules/InstractorModule/components/StudentList/StudentList";
+// import StudentList from "./modules/InstractorModule/components/StudentList/StudentList";
 import Profile from "./shared/components/Profile/Profile";
 import Questions from "./modules/InstractorModule/components/Questions/Questions";
 import Result from "./modules/InstractorModule/components/Result/Result";
+import DashBoard from "./modules/InstractorModule/components/DashBoard/DashBoard";
+import Students from "./modules/InstractorModule/components/Students/Students";
 
 
 
@@ -49,11 +50,12 @@ const routes = createBrowserRouter(
           {path:"quiz" , element:<Quiz/>},
           {path:"quiz/:id" , element:<OneQuiz/>},
           {path:"groups" , element:<Groups/>},
-          {path:"student-list",element:<StudentList/>},
+          // {path:"student-list",element:<StudentList/>},
           {path:"profile", element:<Profile/>},
           {path:"questions",element:<Questions/>},
           {path:"result",element:<Result/>},
-
+          {path:"students", element:<Students/>}
+         
         ]
       },
 
