@@ -20,13 +20,12 @@ import NoData from "../../../../shared/components/NoData/NoData";
 
 
 
+
 export default function DashBoard() {
   
   const [quizzesIncoming, setQuizzesIncoming] = useState<Quiz[]>([]);
   const [topStudents, setTopStudents] = useState<Student[]>([]);
 
-<<<<<<< HEAD
-=======
   // loading
   const [loadingQuiz, setLoadingQuiz] = useState(true);
   const [loadingStudents, setLoadingStudents] = useState(true);
@@ -35,7 +34,6 @@ export default function DashBoard() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [studentIndex, setStudentIndex] = useState(0);
 
->>>>>>> origin/heba/instructor
   const quizzesImgs = [quizImg1,quizImg2];
 
   const studentsImgs = [studentImg1, studentImg2, studentImg3, studentImg4, studentImg5, studentImg6];
@@ -58,41 +56,27 @@ export default function DashBoard() {
 
    const getFiveIncomingQuizzes = async ()=>{
     try {
-<<<<<<< HEAD
-=======
       setLoadingQuiz(true);
->>>>>>> origin/heba/instructor
       const response = await axiosInstance.get(QUIZ_URLS.FIRST_INCOMMING);
       console.log(response.data);
       setQuizzesIncoming(response.data);
       
     } catch (error) {
       console.log(error);
-<<<<<<< HEAD
-=======
     }finally{
       setLoadingQuiz(false);
->>>>>>> origin/heba/instructor
     }
    }
 
    const topFiveStudents = async()=>{
     try {
-<<<<<<< HEAD
-=======
       setLoadingStudents(true);
->>>>>>> origin/heba/instructor
       const response = await axiosInstance.get(STUDENT_URLS.TOP_FIVE_STUDENTS);
       console.log(response.data)
       setTopStudents(response.data)
       
     } catch (error) {
       console.log(error);
-<<<<<<< HEAD
-    }
-   }
-
-=======
     }finally{
       setLoadingStudents(false);
     }
@@ -118,7 +102,6 @@ export default function DashBoard() {
     );
   };
 
->>>>>>> origin/heba/instructor
    useEffect(()=>{
     getFiveIncomingQuizzes();
     topFiveStudents();
@@ -127,38 +110,14 @@ export default function DashBoard() {
 
   return (
     <>
-<<<<<<< HEAD
-   <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mx-3 my-5 items-start">
-=======
-   <div className="grid grid-cols-2 gap-4 mx-3 my-5 items-start">
->>>>>>> origin/heba/instructor
+   <div className="grid  grid-cols-1 lg:grid-cols-2 gap-4 mx-3 my-5 items-start">
 
     {/* // Quizzes upcoming 5 */}
     <div className="border-2 border-gray-200 rounded-2xl p-4">
       <div className="flex items-center justify-between mb-2">
         <h2 className="text-2xl font-bold mb-3">Upcoming 5 quizes</h2>
-        <Link to="/" className="flex items-center text-md font-semibold hover:text-lime-600">Quiz directory <FaArrowRight className="text-lime-300 ml-1"/></Link>
+        <Link to="/instructor/quiz" className="flex items-center text-md font-semibold hover:text-lime-600">Quiz directory <FaArrowRight className="text-lime-300 ml-1"/></Link>
       </div>
-<<<<<<< HEAD
-      {quizzesIncoming.length>0
-      ?quizzesIncoming.map((quiz, index)=>{
-         const {day , time} = formatDate(quiz.schadule);
-         return(
-        <div key={quiz._id} className="flex items-center border-2 border-gray-200 rounded-2xl p-2">
-          <img src={quizzesImgs[index % quizzesImgs.length]} alt="quizImg" className="w-20 h-20 rounded-lg"/>
-          <div className="flex flex-col flex-1 ml-3">
-            <h2 className="text-md font-semibold">{quiz.title}</h2>
-            <p className="text-sm text-gray-500"> {day} | {time}</p>
-            <div className="flex justify-between items-center mt-1">
-              <p className="text-sm">No. of students enrolled: 0</p>
-              <Link to="/" className="flex items-center text-sm font-semibold hover:text-lime-600">Open <FaArrowCircleRight className="text-lime-300 ml-1"/></Link>
-            </div>
-          </div>
-          
-        </div> 
-         )
-      }) :"nodata"}
-=======
       {loadingQuiz ?(
         Array.from({length:3}).map((_, i)=>(
           <InfoCardSkeleton key={i}/>
@@ -174,25 +133,18 @@ export default function DashBoard() {
             title={quiz.title}
             subtitle={`${day} | ${time}`}
             numberStudents={0}
-            link={"/"}
+            link={`/instructor/quiz/${quiz._id}`}
             linkClassName="text-sm font-semibold hover:text-lime-600"
             arrowClassName="text-lime-300"
           />
        
          )
       }) :<NoData/>}
->>>>>>> origin/heba/instructor
       
     </div>
     <div className="border-2 border-gray-200 rounded-2xl p-4">
       <div className="flex items-center justify-between mb-2">
         <h2 className="text-2xl font-bold mb-3">Top 5 Students</h2>
-<<<<<<< HEAD
-        <Link to="/" className="flex items-center text-md font-semibold hover:text-lime-600">All Students<FaArrowRight className="text-lime-300 ml-1"/></Link>
-      </div>
-
-      {topStudents.length>0 ?
-=======
         <Link to="/instractor/students" className="flex items-center text-md font-semibold hover:text-lime-600">All Students<FaArrowRight className="text-lime-300 ml-1"/></Link>
       </div>
 
@@ -202,21 +154,11 @@ export default function DashBoard() {
         ))
       )
       :topStudents.length>0 ?
->>>>>>> origin/heba/instructor
       topStudents.map((student , index)=>(
         <InfoCard
         key={student._id}
         image={studentsImgs[index % studentsImgs.length]}
         title={`${student.first_name} ${student.last_name}`}
-<<<<<<< HEAD
-        subtitle={`Group: ${student.group.name} | Avg score: ${Math.round(student.avg_score)}`}
-        status={student.status}
-        link="/"
-        className="hover:bg-gray-50"
-      />
-
-      )):"nodata"}
-=======
         subtitle={`Group: ${student.group?.name} | Average score: ${Math.round(Number(student.avg_score) || 0)}`}
         status={student.status}
         link='#'
@@ -227,13 +169,10 @@ export default function DashBoard() {
         }}/>
 
       )):<NoData/>}
->>>>>>> origin/heba/instructor
 
       
     </div>
    </div>
-<<<<<<< HEAD
-=======
 
    <StudentModal
   student={selectedStudent}
@@ -241,7 +180,6 @@ export default function DashBoard() {
   onClose={() => setIsModalOpen(false)}
   studentImgs={studentsImgs}
   studentIndex={studentIndex}/>
->>>>>>> origin/heba/instructor
       
     </>
   )

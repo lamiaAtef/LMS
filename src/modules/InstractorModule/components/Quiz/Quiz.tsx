@@ -112,7 +112,7 @@ export default function Quiz() {
 
   return (
     <>
-      <div className="container grid grid-cols-1 lg:grid-cols-2 gap-4 h-screen">
+      <div className="mx-3 grid grid-cols-1 my-5  lg:grid-cols-2  h-screen box-border">
         {/* Left column buttons */}
         <div className="flex">
           <button
@@ -135,7 +135,7 @@ export default function Quiz() {
         {/* Right column upcoming and completed quizzes */}
         <div>
           {/* Upcoming Quizzes */}
-          <div className="border-[#00000033] border-2 p-4 rounded-lg my-5 h-75 overflow-auto">
+          <div className="border-[#00000033] border-2 p-4 rounded-lg h-75 overflow-auto">
             <h2 className="mb-3 font-bold">Upcoming quizzes</h2>
             {loadingUpcoming ? (
               [...Array(3)].map((_, index) => (
@@ -167,7 +167,7 @@ export default function Quiz() {
           </div>
 
           {/* Completed Quizzes Table */}
-          <div className="border-[#00000033] border-2 rounded-lg p-5 overflow-auto">
+          <div className="border-[#00000033] border-2 mt-5 rounded-lg p-5 overflow-auto">
             <div className="flex justify-between px-3">
               <h2 className="mb-3 font-bold">Completed Quizzes</h2>
               <Link to="" className="flex items-center">

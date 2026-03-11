@@ -60,6 +60,8 @@ export interface InfoCardProps {
     className?: string;
     linkClassName?: string;
     arrowClassName?: string;
+    onClick?: ()=>void;
+
   }
   export interface Group{
      _id: string,
@@ -78,4 +80,4 @@ export interface InfoCardProps {
   _id:string
 }
 
-  
+

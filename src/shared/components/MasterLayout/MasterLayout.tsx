@@ -1,21 +1,24 @@
-
 import { Outlet } from 'react-router-dom'
-import Sidebar from '../Sidebar/Sidebar'
-import Navbar from '../Navbar/Navbar'
+
+import { useState } from 'react';
+import SideBar from '../Sidebar/Sidebar';
+import NavBar from '../Navbar/Navbar';
 
 
 
 
 export default function MasterLayout() {
+   const [collapsed, setCollapsed] = useState(false);
 
   return (
     <>
     <div className='flex'>
       <div>
-       <Sidebar />
+       <SideBar collapsed={collapsed} setCollapsed={setCollapsed}/>
        </div>
-        <div className='container '>
-          <Navbar/>
+        <div className=  {`transition-all duration-300 container  w-full overflow-x-hidden
+        ${collapsed ? "ml-24" : "ml-64"}`}>
+          <NavBar/>
           <Outlet/>
       </div>
     </div>

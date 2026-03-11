@@ -5,22 +5,24 @@ import { HiHome, HiUser, HiDocumentText, HiMenu } from "react-icons/hi";
 import { FaPeopleGroup } from "react-icons/fa6";
 import { NavLink } from "react-router-dom";
 import logo_icon from "../../../assets/images/Logo icon.png"
+import { MdGroups2 } from "react-icons/md";
 
-export default function Sidebar() {
-  const [collapsed, setCollapsed] = useState(false);
+export default function Sidebar({ collapsed, setCollapsed }: any) {
 
   const menuItems = [
     { icon: HiHome, label: "Dashboard",path:"/instructor" },
-    { icon: HiUser, label: "Quizz",path:"/instructor/quiz" },
-    { icon: FaPeopleGroup, label: "Students" ,path:"/instructor/student-list"},
+    { icon: FaPeopleGroup, label: "Students" ,path:"/instructor/students"},
+    { icon: MdGroups2, label: "Groups",path:"/instructor/groups" },
+     { icon: HiUser, label: "Quizz",path:"/instructor/quiz" },
     { icon: HiDocumentText, label: "Results",path:"/instructor/result" },
+    
   ];
 
   return (
     <div className="flex h-screen ">
       {/* Sidebar */}
-      <div className={`bg-white text-black transition-all duration-300 border border-gray-200   h-screen
-        ${collapsed ? "w-25" : "w-64"}`}>
+    <div className={` fixed top-0 left-0 bg-white text-black transition-all duration-300 border border-gray-200   h-screen
+         ${collapsed ? "w-25" : "w-64"}`}>
 
         {/* Collapse Button */}
       <div className="flex items-center">
@@ -30,7 +32,7 @@ export default function Sidebar() {
         >
           <HiMenu size={30} />
         </button>
-        <img src={logo_icon} className="w-15 h-10"/>
+        {collapsed ?  <img src={logo_icon} className="w-8 h-5 mr-3"/>:  <img src={logo_icon} className="w-15 h-10"/>}
 
       </div>
 
