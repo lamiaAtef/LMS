@@ -16,7 +16,8 @@ export const STUDENT_URLS = {
   GET_ALL : `/api/student`,
   GET_BY_ID : (id:string) =>`/api/student/${id}`,
   TOP_FIVE_STUDENTS:`/api/student/top-five`,
-
+  GET_STUDENTS_WITHOUT_GROUP:`api/student/without-group`,
+  
 
 }
 export const GROUPS_URLS = {
@@ -38,9 +39,9 @@ export const QUESTION_URLS = {
 export const QUIZ_URLS = {
   GET_ALL : `/api/quiz`,
   GET_BY_ID : (id:string) =>`/api/quiz/${id}`,
-  CREATE_QUESTION : `/api/quiz`,
-  UPDATE_QUESTION : (id:string)=>`/api/quiz/${id}`,
-  DELETE_QUESTION : (id:string)=>`/api/quiz/${id}`,
+  CREATE_QUIZ : `/api/quiz`,
+  UPDATE_QUIZ : (id:string)=>`/api/quiz/${id}`,
+  DELETE_QUIZ : (id:string)=>`/api/quiz/${id}`,
   SEARCH : `/api/question/search`,
   JOIN: `/api/quiz/join`,
   SUBMIT :(id:string)=>  `/api/quiz/submit/${id}`,
@@ -51,4 +52,9 @@ export const QUIZ_URLS = {
   REASSIGN : (id:string) => `/api/quiz/reassign/${id}`,
 
 }
+
 // end Instractor module
+export const RESULT={
+    GET_ALL_RESULT:`/api/quiz/result`
+
+}
