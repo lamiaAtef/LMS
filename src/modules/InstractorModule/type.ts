@@ -2,9 +2,15 @@ export interface Quiz {
     _id: string,
     code: string,
     title:string,
-    status: "closed" | "open",
-    group: string,
+    status?: "closed" | "open",
+    group: {},
     schadule: string
+    questions_number: number,
+    description?:string,
+    duration?:string,
+    score_per_question?:number,
+    participants:any[],
+    type?:[],
 }
 
 export interface Student{
@@ -15,6 +21,18 @@ export interface Student{
     avg_score: number,
     status:string,
     group: Group
+}
+export interface DeleteConfirmModalProps {
+  isOpen: boolean;
+  title?: string;
+  message?: string;
+  onConfirm: () => void;
+  onCancel: () => void;
+}
+ export interface Student {
+  _id: string;
+  first_name: string;
+  last_name: string;
 }
 
 export interface Group {
@@ -27,6 +45,10 @@ export interface Group {
     createdAt: string;
     updatedAt: string;
   }
+export interface CreateGroupPayload {
+  name: string;
+  students: string[];
+}
 
 export interface InfoCardProps {
     image: string;
@@ -39,4 +61,23 @@ export interface InfoCardProps {
     linkClassName?: string;
     arrowClassName?: string;
     onClick?: ()=>void;
+
   }
+  export interface Group{
+     _id: string,
+      name: string,
+      status: string,
+      instructor: string,
+      students: string[],
+      max_students: number,
+  }
+  export type GetGroupResponse = Group[];
+  ///question
+ export interface Question{
+  title:string,
+  description:string,
+  difficulty:"hard"|"easy",
+  _id:string
+}
+
+

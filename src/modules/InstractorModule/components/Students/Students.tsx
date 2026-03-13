@@ -101,7 +101,7 @@ export default function Students() {
         className="border border-[#cdd3dd] input-placeholder-gray px-3 py-2 rounded-3xl mb-4 w-80 input-focus-gray"
         />
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {loading ?(
               Array.from({length:6}).map((_,i)=>(
                   <StudentsSkeleton key={i}/>

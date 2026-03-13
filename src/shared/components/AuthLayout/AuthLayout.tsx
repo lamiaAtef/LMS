@@ -12,8 +12,9 @@ export default function AuthLayout() {
           
           <Outlet/>
         </div>
-         <div className='flex items-center justify-center bg-[#FFEDDF] rounded-3xl hidden md:flex ' >
+         <div className=' flex items-center justify-center bg-[#FFEDDF] rounded-3xl hidden lg:flex ' >
             <img src={authImage} alt="authentication image" className='w-2/3 h-2/3 ' />
+           
             
         </div>
       </div>

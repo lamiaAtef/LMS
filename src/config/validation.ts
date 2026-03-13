@@ -1,7 +1,7 @@
 
-export const getRequiredMessage = (fieldName:string):string => `${fieldName} is required` 
+export const getRequiredMessage = (fieldName:string):string => `${fieldName} is required`
 export const EMAIL_VALIDATION ={
-    
+
     required: getRequiredMessage("Email"),
     pattern:{
     value:/^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/,
@@ -9,7 +9,7 @@ export const EMAIL_VALIDATION ={
     }
 }
 export const PASSWORD_VALIDATION={
-    
+
     required:getRequiredMessage("Password"),
     minLength: {
     value: 3,
@@ -46,12 +46,16 @@ export const CONFIRM_PASSWORD_VALIDATION = (password: string) => ({
   validate: (value: string) =>
     value === password || "Passwords do not match",
 });
+export const OTP_VALIDATION = {
+     required: getRequiredMessage("OTP"),
+       pattern:{
+        value:/^\d{6}$/,
+        message : "Invalid OTP"
+    }
+}
 export const ROLE_VALIDATION = {
      required: getRequiredMessage("Role"),
-      pattern:{
-         value:/ ^(Instructor|Student)$/,
-        message : "role must be one of [Instructor, Student]"
-    }
+   
 }
     
 

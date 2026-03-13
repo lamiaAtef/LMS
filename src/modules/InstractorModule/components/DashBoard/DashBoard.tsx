@@ -20,6 +20,7 @@ import NoData from "../../../../shared/components/NoData/NoData";
 
 
 
+
 export default function DashBoard() {
   
   const [quizzesIncoming, setQuizzesIncoming] = useState<Quiz[]>([]);
@@ -109,13 +110,13 @@ export default function DashBoard() {
 
   return (
     <>
-   <div className="grid grid-cols-2 gap-4 mx-3 my-5 items-start">
+   <div className="grid  grid-cols-1 lg:grid-cols-2 gap-4 mx-3 my-5 items-start">
 
     {/* // Quizzes upcoming 5 */}
     <div className="border-2 border-gray-200 rounded-2xl p-4">
       <div className="flex items-center justify-between mb-2">
         <h2 className="text-2xl font-bold mb-3">Upcoming 5 quizes</h2>
-        <Link to="/" className="flex items-center text-md font-semibold hover:text-lime-600">Quiz directory <FaArrowRight className="text-lime-300 ml-1"/></Link>
+        <Link to="/instructor/quiz" className="flex items-center text-md font-semibold hover:text-lime-600">Quiz directory <FaArrowRight className="text-lime-300 ml-1"/></Link>
       </div>
       {loadingQuiz ?(
         Array.from({length:3}).map((_, i)=>(
@@ -132,7 +133,7 @@ export default function DashBoard() {
             title={quiz.title}
             subtitle={`${day} | ${time}`}
             numberStudents={0}
-            link={"/"}
+            link={`/instructor/quiz/${quiz._id}`}
             linkClassName="text-sm font-semibold hover:text-lime-600"
             arrowClassName="text-lime-300"
           />
@@ -144,7 +145,7 @@ export default function DashBoard() {
     <div className="border-2 border-gray-200 rounded-2xl p-4">
       <div className="flex items-center justify-between mb-2">
         <h2 className="text-2xl font-bold mb-3">Top 5 Students</h2>
-        <Link to="/instractor/students" className="flex items-center text-md font-semibold hover:text-lime-600">All Students<FaArrowRight className="text-lime-300 ml-1"/></Link>
+        <Link to="/instructor/students" className="flex items-center text-md font-semibold hover:text-lime-600">All Students<FaArrowRight className="text-lime-300 ml-1"/></Link>
       </div>
 
       {loadingStudents ?(

@@ -13,6 +13,10 @@ export interface UserProfile {
 }
 // login interfaces
 
+//  GENERAL INTERFACE  ==> FailedResponse
+
+//login interfaces
+
 export interface LoginPayload{
     email:string;
     password:string;
@@ -21,15 +25,12 @@ export interface LoginPayload{
 export interface ForgetPayload{
     email:string;
   
-    
-
 }
 export interface ResetPayload{
     email:string;
       otp:string;
     password:string;
-    confirmPassword:string
-    
+    confirmPassword:string   
 
 }
     // success login case interface 
@@ -61,3 +62,16 @@ export interface SuccessChangePassword{
   data:UserProfile;
 }
 // end Change_Passsword  interfaces ==> FailedResponse USED IN CHANGEpASSWORD FAILURE RESPONSE
+
+// start register 
+type Role="Instructor" | "Student";
+
+export interface RegisterPayload{
+  first_name:string,
+  last_name:string,
+  password:string,
+  email:string,
+  role:Role,
+}
+
+// end register

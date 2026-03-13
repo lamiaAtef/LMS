@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 const InstructorProtectedRoute = ({ children }) => {
   const {user,isAuthenticated} = useSelector((state) => state.auth);
   if (!user) return <Navigate to="/" />; 
-  if (user && user?.role !== "Instructor") return <Navigate to="/notFound" />; 
+  // if (user && user?.role !== "Instructor") return <Navigate to="/notFound" />; 
   return children;
 };
 

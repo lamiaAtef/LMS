@@ -50,7 +50,6 @@ export const QUIZ_URLS = {
   FIRST_INCOMMING :`/api/quiz/incomming`,
   LAST_COMPLETED : `/api/quiz/completed`,
   REASSIGN : (id:string) => `/api/quiz/reassign/${id}`,
-
 }
 
 // end Instractor module

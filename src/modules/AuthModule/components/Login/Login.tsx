@@ -34,10 +34,10 @@ export default function Login() {
         let response = await axiosInstance.post<SuccessLoginResponse>(AUTH_URLS.LOGIN,data)
         localStorage.setItem("token",response.data.data.accessToken);
         dispatch(setCredentials({token: response.data.data.accessToken }));
-        navigate("/instractor/dashboard")
+        navigate("/instructor/dashboard")
         toast.success(response?.data?.message)
-             
-        
+
+
     }
     catch(error:any){
       const errResponse = error.response?.data as FailedResponse;
@@ -130,7 +130,7 @@ export default function Login() {
   ) : (
     <GrStatusGood color="#000" size="20px" />
   )}
-</button>
+        </button>
           <p>Forgot password? <Link to="/forget-pass" className='text-[#C5D86D]' >click here</Link></p>
 
         </div>
