@@ -2,21 +2,18 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { axiosInstance } from "../../../../config/httpClient";
 import { QUIZ_URLS } from "../../../../config/api.endPoint";
-import type { SubmitAnswer } from "../../../InstractorModule/type";
+import type { SubmitAnswer, QuestionType } from "../type";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-type QuestionType = {
-  _id: string;
-  question: string;
-  answers: string[];
-};
+
 
 export default function Quzies() {
   const { quizId } = useParams<{ quizId: string }>();
 
   const [quizTitle, setQuizTitle] = useState<string>("");
   const navigate = useNavigate();
+  const [scorePerQuestion, setScorePerQuestion] = useState(0);
 
   const [questions, setQuestions] = useState<QuestionType[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -27,23 +24,26 @@ export default function Quzies() {
   const getQuestions = async () => {
     try {
       setLoading(true);
-  
       const response = await axiosInstance.get(
         QUIZ_URLS.WITHOUT_ANSWER(quizId!)
       );
-  
-      const quizData = response.data?.data; // ده كل الكويز
+    
+      // quizData: all data from api
+      const quizData = response.data?.data; 
+      // apiQuestions: question data
       const apiQuestions = quizData?.questions || [];
   
-      // تحويل options object → array
+      // convert options(answers) object → array and formate question info
       const formattedQuestions: QuestionType[] = apiQuestions.map((q: any) => ({
         _id: q._id,
         question: q.title,
         answers: Object.values(q.options)
       }));
   
-      setQuizTitle(quizData.title); // هنا خزنا اسم الكويز
+      setQuizTitle(quizData.title); // quiz title
+      setScorePerQuestion(quizData.score_per_question); // score per question
       setQuestions(formattedQuestions);
+
     } catch (error: any) {
       toast.error(error.response?.data?.message || "Failed to load quiz");
     } finally {
@@ -57,7 +57,7 @@ export default function Quzies() {
     getQuestions();
   }, [quizId]);
 
-  // الانتقال للسؤال التالي
+  // function to moving to next question
   const handleNext = () => {
     if (!selectedAnswer) {
       toast.warning("Please select an answer");
@@ -76,7 +76,7 @@ export default function Quzies() {
     setCurrentIndex(prev => prev + 1);
   };
 
-  // تسليم الاختبار
+  // submit quiz
   const submitQuiz = async () => {
     if (!selectedAnswer) {
       toast.warning("Please select an answer before submitting");
@@ -91,10 +91,12 @@ export default function Quzies() {
     try {
     const response= await axiosInstance.post(QUIZ_URLS.SUBMIT(quizId!), { answers: finalAnswers });
       toast.success("Quiz submitted successfully");
-      // جلب النتيجة من الـ API لو بيرجع score
+      
+      // score 
     const studentScore = response.data?.data?.score || 0;
-    const totalScore = questions.length; // أو لو عندك score_per_question × num_questions
-    // navigate لصفحة النتائج
+    const totalScore = questions.length * scorePerQuestion; // score_per_question × num_questions
+    
+    // navigate to result page
     navigate(`/student/quzies/${quizId}/result`, {
       state: { quizTitle, score: studentScore, total: totalScore }
     });
@@ -133,7 +135,7 @@ export default function Quzies() {
 
         {currentQuestion && (
           <>
-            <h2 className="text-lg font-medium my-4">{currentQuestion.question} ?</h2>
+            <h2 className="text-lg font-medium my-4">{currentIndex + 1}. {currentQuestion.question} ?</h2>
 
             <div className="flex flex-col gap-3">
               {currentQuestion.answers.map((ans, index) => {
@@ -173,8 +175,7 @@ export default function Quzies() {
           ) : (
             <button
               onClick={submitQuiz}
-              className="bg-green-500 text-white px-6 py-2 rounded-lg cursor-pointer"
-            >
+              className="bg-green-500 text-white px-6 py-2 rounded-lg cursor-pointer">
               Submit
             </button>
           )}
