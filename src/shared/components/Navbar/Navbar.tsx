@@ -56,8 +56,8 @@ const location = useLocation();
   };
 }, []);
   return (
-    <nav className="bg-white shadow-md fixed w-screen ">
-      <div className="max-w-7xl mx-auto px-4">
+    <nav className="bg-white shadow-md fixed w-screen">
+      <div className="w-5xl mx-auto">
 
         <div className="flex justify-between items-center h-16">
 

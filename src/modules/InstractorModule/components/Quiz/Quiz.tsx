@@ -18,8 +18,10 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import CustomPagination from "../../../../shared/components/CustomPagination/CustomPagination.tsx";
 import AddQuizComponent from "../ui/AddQuizComponent/AddQuizComponent.tsx";
+import { useSelector } from "react-redux";
+import type { RootState } from "../../../../redux/store.ts";
+import NoData from "../../../../shared/components/NoData/NoData.tsx";
 
-// نوع جديد للـ form يشمل date و time
 type QuizForm = Quiz & { date: string; time: string };
 
 export default function Quiz() {
@@ -42,6 +44,7 @@ export default function Quiz() {
   const { register, handleSubmit, reset, formState: { errors } } = useForm<QuizForm>();
  const [allGroups, setAllGroups] = useState<Group[]>([]);
 
+  const {user} = useSelector((state:RootState) => state.auth);
 
 
 
@@ -128,7 +131,8 @@ export default function Quiz() {
 
   useEffect(() => {
     getUpcommingQuiz();
-    getAllGroups();
+     {user?.role == "Instructor"&&getAllGroups();}
+    
     getCompletedQuiz();
   }, []);
 
@@ -136,6 +140,7 @@ export default function Quiz() {
     <>
       <div className="mx-3 grid grid-cols-1 my-5  lg:grid-cols-2 box-border">
         {/* Left column buttons */}
+        {user?.role == "Instructor"?
         <div className="flex mb-3">
           <button
             id="new_quiz"
@@ -153,6 +158,16 @@ export default function Quiz() {
             Question Bank
           </button>
         </div>
+        :
+         <button
+            id="question_bank"
+            className="outline-none bg-[#fff] cursor-pointer w-50 me-4 p-5 border-2 border-[#00000033] rounded-lg flex items-center justify-center flex-col h-40 mb-5"
+            onClick={()=>navigate("/instructor/questions")}
+            >
+            <BsFillSafe2Fill size={50} />
+            Join Quiz
+         </button>
+         }
 
         {/* Right column upcoming and completed quizzes */}
         <div>
@@ -184,7 +199,7 @@ export default function Quiz() {
                 />
               ))
             ) : (
-              "No data"
+              <NoData/>
             )}
           </div>
 
@@ -232,18 +247,19 @@ export default function Quiz() {
           ))
         ) : (
           <tr>
-            <td colSpan={4} className="text-center py-6 text-gray-400">No Data</td>
+            <td colSpan={4} className="text-center py-6 text-gray-400"><NoData/></td>
           </tr>
         )}
       </tbody>
     </table>
     
   </div>
+  {currentQuizes.length > 0 &&
    <CustomPagination
             currentPage={currentPage}
             totalPages={totalPages}
             onPageChange={(page) => setCurrentPage(page)}
-      />
+      />}
 </div>
         </div>
       </div>
