@@ -109,7 +109,7 @@ export default function OneQuiz() {
           getQuizById();
       },[])
   return (
-    <div>
+    <div className='ms-2 lg:ms-4 '>
         <div className='flex items-center'> 
             <Link to="/instructor/quiz" className='px-3  font-bold hover:text-[#C5D86D]'>Quizzes</Link> 
              <FaAngleDoubleRight color='#C5D86D' />

@@ -4,8 +4,9 @@ import { HiMenu, HiX } from "react-icons/hi";
 import { IoIosArrowDown } from "react-icons/io";
 import useLogout from "../../../hooks/useLogOut";
 import { useSelector } from "react-redux";
-import type { RootState } from "@reduxjs/toolkit/query";
+// import type { RootState } from "@reduxjs/toolkit/query";
 import { Link, useLocation } from "react-router-dom";
+import type { RootState } from "../../../redux/store";
 
 
 
@@ -55,7 +56,7 @@ const location = useLocation();
   };
 }, []);
   return (
-    <nav className="bg-white shadow-md">
+    <nav className="bg-white shadow-md fixed w-screen ">
       <div className="max-w-7xl mx-auto px-4">
 
         <div className="flex justify-between items-center h-16">

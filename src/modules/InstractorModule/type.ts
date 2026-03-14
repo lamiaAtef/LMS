@@ -72,6 +72,28 @@ export interface InfoCardProps {
       max_students: number,
   }
   export type GetGroupResponse = Group[];
+  // Completed Quiz
+  export interface COMPLETED_QUIZ {
+  _id: string;
+  code: string;
+  title: string;
+  description: string;
+  status: "open" | "closed"; 
+  instructor: string;
+  group: string;
+  questions_number: number;
+  questions: any[]; 
+  schadule: string; 
+  duration: number; 
+  score_per_question: number;
+  type: "BE" | "FE" | "FS";
+  difficulty: "easy" | "medium" | "hard"; 
+  updatedAt: string;
+  createdAt: string;
+  __v: number;
+  participants: number;
+  
+}
   ///question
  export interface Question{
   title:string,

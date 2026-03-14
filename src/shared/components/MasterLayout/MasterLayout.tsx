@@ -19,7 +19,10 @@ export default function MasterLayout() {
         <div className=  {`transition-all duration-300 container  w-full overflow-x-hidden
         ${collapsed ? "ml-24" : "ml-64"}`}>
           <NavBar/>
-          <Outlet/>
+          <div className='mt-20'>
+              <Outlet/>
+          </div>
+          
       </div>
     </div>
 
