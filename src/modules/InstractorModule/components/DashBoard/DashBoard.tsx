@@ -145,7 +145,7 @@ export default function DashBoard() {
     <div className="border-2 border-gray-200 rounded-2xl p-4">
       <div className="flex items-center justify-between mb-2">
         <h2 className="text-2xl font-bold mb-3">Top 5 Students</h2>
-        <Link to="/instractor/students" className="flex items-center text-md font-semibold hover:text-lime-600">All Students<FaArrowRight className="text-lime-300 ml-1"/></Link>
+        <Link to="/instructor/students" className="flex items-center text-md font-semibold hover:text-lime-600">All Students<FaArrowRight className="text-lime-300 ml-1"/></Link>
       </div>
 
       {loadingStudents ?(
