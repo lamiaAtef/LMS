@@ -4,6 +4,7 @@ import { FaPeopleGroup } from "react-icons/fa6";
 import { NavLink } from "react-router-dom";
 import logo_icon from "../../../assets/images/Logo icon.png"
 import { MdGroups2 } from "react-icons/md";
+import { useEffect } from "react";
 
 export default function Sidebar({ collapsed, setCollapsed }: any) {
 
@@ -15,6 +16,20 @@ export default function Sidebar({ collapsed, setCollapsed }: any) {
     { icon: HiDocumentText, label: "Results",path:"/instructor/result" },
     
   ];
+  useEffect(()=>{
+   const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setCollapsed(true);
+      } else {
+        setCollapsed(false);
+      }
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+},[setCollapsed])
 
   return (
     <div className="flex h-screen ">
@@ -40,6 +55,11 @@ export default function Sidebar({ collapsed, setCollapsed }: any) {
             <NavLink
             to={item.path}
               key={index}
+              onClick={() => {
+                if(window.innerWidth < 768){
+                  setCollapsed(true)
+                }
+              }}
               className="flex items-center p-6 hover:bg-[#FFEDDF] cursor-pointer border-b border-gray-200 "
             >
               <item.icon size={40}  className="bg-[#FFEDDF]  text-[#0D1321] p-1"/>

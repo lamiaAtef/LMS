@@ -5,6 +5,8 @@ import { axiosInstance } from '../../../../config/httpClient';
 import { RESULT } from '../../../../config/api.endPoint';
 import Pagination from '../../../../shared/components/Pagination/Pagination';
 import "./Result.css"
+import {  ClipLoader } from 'react-spinners';
+import type { Quiz } from '../../type';
 interface ResultResponse{
   title:string,
   _id:string
@@ -12,9 +14,10 @@ interface ResultResponse{
 
 export default function Result() {
     const [resultList,setResultList]=useState<ResultResponse[]>([]);
+    const [loading,setLoading]=useState(false);
        /////////////////////////start pagination
    const [currentPage, setCurrentPage] = useState(1);
-   const resultPerPage = 6;
+   const resultPerPage = 5;
      const indexOfLastResult= currentPage * resultPerPage;
    const indexOfFirstResult = indexOfLastResult - resultPerPage;
    const currentResult = resultList?.slice(indexOfFirstResult, indexOfLastResult);
@@ -22,7 +25,9 @@ export default function Result() {
    const handlePagination = (pageNumber:any) => setCurrentPage(pageNumber);
    /////////////////end pagination
     const getAllResult=async()=>{
+
         try {
+           setLoading(true);
             const response=await axiosInstance.get(RESULT.GET_ALL_RESULT)
 
 console.log("results", response?.data);
@@ -32,10 +37,16 @@ setResultList(response?.data);
 
 
         }
+        finally {
+    setLoading(false);
+  }
     }
     useEffect(()=>{
         getAllResult();
     },[])
+      if(loading) return <div className=' flex items-center justify-center h-screen '>
+   <ClipLoader size={40} color='#288131'  />
+   </div>
   return (
     <>
 
@@ -64,7 +75,7 @@ setResultList(response?.data);
           <tr  key={result?._id} className="hover:bg-gray-200 my-2">
             <td className="px-4 py-1 border border-gray-300  rounded-tl-lg rounded-bl-lg ">{result.quiz.title}</td>
             <td className="px-4 py-3  border border-gray-300">{result.quiz.group}</td>
-               <td className="px-4 py-3  border border-gray-300">lll</td>
+               <td className="px-4 py-3  border border-gray-300">{result.quiz.__v}</td>
             <td className="px-4 py-3  border border-gray-300">{result.participants.length}</td>
             <td className="px-4 py-3 border border-gray-300">{result.quiz.schadule}</td>
             <td className="px-4 py-3 border border-gray-300  rounded-tr-lg rounded-br-lg ">
@@ -94,6 +105,8 @@ setResultList(response?.data);
           handlePagination={handlePagination}
           currentPage={currentPage}
         />
+
+
     </>
   )
 }

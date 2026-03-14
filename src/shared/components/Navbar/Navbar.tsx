@@ -4,16 +4,12 @@ import { HiMenu, HiX } from "react-icons/hi";
 import { IoIosArrowDown } from "react-icons/io";
 import useLogout from "../../../hooks/useLogOut";
 import { useSelector } from "react-redux";
-// import type { RootState } from "@reduxjs/toolkit/query";
 import { Link, useLocation } from "react-router-dom";
 import type { RootState } from "../../../redux/store";
 
-
-
-
 export default function Navbar() {
 
-  const user = useSelector((state: RootState) => state.auth.user);
+  const user = useSelector((state:RootState) => state.auth.user);
   console.log(user);
 const location = useLocation();
   const [open, setOpen] = useState(false);
@@ -22,13 +18,13 @@ const location = useLocation();
   const{logoutUser}=useLogout();
   const getPageTitle = () => {
   switch (location.pathname) {
-    case "/instractor/dashboard":
+    case "/instructor/dashboard":
       return "Dashboard";
-    case "/instractor/quizzes":
-      return "Quizzes";
-    case "/instractor/student-list":
-      return "Student List";
-    case "/instractor/result":
+    case "/instructor/quiz":
+      return "quiz";
+    case "/instructor/students":
+      return "Students";
+    case "/instructor/result":
       return "Results";
     default:
       return "Dashboard";
@@ -56,8 +52,8 @@ const location = useLocation();
   };
 }, []);
   return (
-    <nav className="bg-white shadow-md fixed w-screen">
-      <div className="w-5xl mx-auto">
+    <nav className="bg-white shadow-md ">
+      <div className="max-w-7xl mx-auto px-4">
 
         <div className="flex justify-between items-center h-16">
 
@@ -67,14 +63,14 @@ const location = useLocation();
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-6 text-gray-700">
             <div className="cursor-pointer">
-              {/* <button className="flex items-center text-black px-4 py-2 rounded-2xl  font-bold border border-gray-300">
-              <FaPlus className="mr-2" />
-              New quiz
-            </button> */}
+              <button className="flex items-center text-black px-4 py-2 rounded-2xl  font-bold border border-gray-300">
+  <FaPlus className="mr-2" />
+  New quiz
+</button>
                </div>
              <div className="cursor-pointer border-l border-gray-300 pl-4">
               <h4 className="font-bold text-[#000000]">{user?.email}</h4>
-              <h5 className="text-[#C5D86D]">Instructor</h5>
+              <h5 className="text-[#C5D86D]">{user?.role}</h5>
              </div>
                       <div className="relative w-40 " ref={dropdownRef}>
 
@@ -94,7 +90,7 @@ const location = useLocation();
          <li  className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
           onClick={() => setIsOpen(false)}
          >
-           <Link  to="/instractor/profile">
+           <Link  to="/instructor/profile">
                Profile
               </Link>
          </li>

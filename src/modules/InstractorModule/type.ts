@@ -102,4 +102,9 @@ export interface InfoCardProps {
   _id:string
 }
 
+// Interface Result
+export interface ResultResponse{
+  Quiz:Quiz[],
+  participant:string[],
+}
 
