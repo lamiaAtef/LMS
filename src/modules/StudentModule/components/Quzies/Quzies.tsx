@@ -97,7 +97,7 @@ export default function Quzies() {
     const totalScore = questions.length * scorePerQuestion; // score_per_question × num_questions
     
     // navigate to result page
-    navigate(`/student/quzies/${quizId}/result`, {
+    navigate(`/dashboard/quzies/${quizId}/result`, {
       state: { quizTitle, score: studentScore, total: totalScore }
     });
       

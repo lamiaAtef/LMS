@@ -26,7 +26,7 @@ export default function AddQuizComponent({ register, errors, allGroups }: AddQui
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           <InstructorInput label="Duration (in minutes)">
             <select className="w-full p-2 outline-none" {...register("duration", REQUIRED_VALIDATION("duration"))}>
-              {[1,5,10,15,20,30,45,60].map((min) => <option key={min} value={min}>{min} min</option>)}
+              {[1,5,10,15,20,30,45,60,180].map((min) => <option key={min} value={min}>{min} min</option>)}
             </select>
           </InstructorInput>
 

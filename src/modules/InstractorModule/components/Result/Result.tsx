@@ -3,26 +3,30 @@ import  { useEffect, useState } from 'react'
 
 import { axiosInstance } from '../../../../config/httpClient';
 import { RESULT } from '../../../../config/api.endPoint';
-import Pagination from '../../../../shared/components/Pagination/Pagination';
 import "./Result.css"
 import {  ClipLoader } from 'react-spinners';
-import type { Quiz } from '../../type';
-interface ResultResponse{
-  title:string,
-  _id:string
-}
+import type { Result } from '../../type';
+import { useSelector } from 'react-redux';
+import type { RootState } from '../../../../redux/store';
+import NoData from '../../../../shared/components/NoData/NoData';
+import CustomPagination from '../../../../shared/components/CustomPagination/CustomPagination';
+
 
 export default function Result() {
-    const [resultList,setResultList]=useState<ResultResponse[]>([]);
+    const [resultList,setResultList]=useState<Result[]>([]);
     const [loading,setLoading]=useState(false);
-       /////////////////////////start pagination
-   const [currentPage, setCurrentPage] = useState(1);
-   const resultPerPage = 5;
-     const indexOfLastResult= currentPage * resultPerPage;
-   const indexOfFirstResult = indexOfLastResult - resultPerPage;
-   const currentResult = resultList?.slice(indexOfFirstResult, indexOfLastResult);
+    const { user } = useSelector((state: RootState) => state.auth);
 
-   const handlePagination = (pageNumber:any) => setCurrentPage(pageNumber);
+       /////////////////////////start pagination
+    const [currentPage, setCurrentPage] = useState(1);
+    const resultPerPage = 10;
+    const lastIndex = currentPage * resultPerPage;
+    const firstIndex = lastIndex - resultPerPage;
+
+    const currentResult = resultList?.slice(firstIndex, lastIndex);
+    const totalPages = Math.ceil(resultList.length / resultPerPage);
+
+
    /////////////////end pagination
     const getAllResult=async()=>{
 
@@ -30,8 +34,8 @@ export default function Result() {
            setLoading(true);
             const response=await axiosInstance.get(RESULT.GET_ALL_RESULT)
 
-console.log("results", response?.data);
-setResultList(response?.data);
+            console.log("results", response?.data);
+            setResultList(response?.data);
         } catch (error) {
             console.log(error);
 
@@ -55,6 +59,7 @@ setResultList(response?.data);
 
 
 <div className="w-full  overflow-x-auto ">
+ {currentResult.length > 0 ?(
 <table className="min-w-[800px] text-left border-separate border-spacing-y-2 w-full">
 
       <thead className="bg-gray-900 text-white  text-sm font-thin">
@@ -70,13 +75,13 @@ setResultList(response?.data);
       </thead>
 
       <tbody className="divide-y">
-        {currentResult.length > 0 ?(
-        currentResult.map((result:ResultResponse) => (
-          <tr  key={result?._id} className="hover:bg-gray-200 my-2">
+      
+        {currentResult.map((result:Result) => (
+          <tr  key={result?.quiz?._id} className="hover:bg-gray-200 my-2">
             <td className="px-4 py-1 border border-gray-300  rounded-tl-lg rounded-bl-lg ">{result.quiz.title}</td>
             <td className="px-4 py-3  border border-gray-300">{result.quiz.group}</td>
                <td className="px-4 py-3  border border-gray-300">{result.quiz.__v}</td>
-            <td className="px-4 py-3  border border-gray-300">{result.participants.length}</td>
+           {(user && user.role === "Instructor")&& <td className="px-4 py-3  border border-gray-300">{result.participants.length}</td>}
             <td className="px-4 py-3 border border-gray-300">{result.quiz.schadule}</td>
             <td className="px-4 py-3 border border-gray-300  rounded-tr-lg rounded-br-lg ">
               <button className="bg-[#C5D86D]  text-black    px-4 py-1 rounded-full text-sm">
@@ -86,26 +91,19 @@ setResultList(response?.data);
 
           </tr>
 
-
-
-
-
-
-
-
-        ))):""}
+        ))}
       </tbody>
 
     </table>
+    ):<NoData/>}
   </div>
 </div>
-   <Pagination
-          categoryPerPage={resultPerPage}
-          length={resultList.length}
-          handlePagination={handlePagination}
-          currentPage={currentPage}
+ 
+ <CustomPagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={(page) => setCurrentPage(page)}
         />
-
 
     </>
   )

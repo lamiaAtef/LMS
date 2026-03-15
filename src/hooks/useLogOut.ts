@@ -24,7 +24,7 @@ export default function useLogout() {
         }).then((result) => {
           if (result.isConfirmed) {
 
-dispatch(logout());
+          dispatch(logout());
 
             toast.success("You have been successfully logged out!", {
                 position: "top-right",

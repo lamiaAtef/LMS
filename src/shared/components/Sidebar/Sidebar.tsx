@@ -1,21 +1,30 @@
 
 import { HiHome, HiUser, HiDocumentText, HiMenu } from "react-icons/hi";
 import { FaPeopleGroup } from "react-icons/fa6";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import logo_icon from "../../../assets/images/Logo icon.png"
 import { MdGroups2 } from "react-icons/md";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import type { RootState } from "../../../redux/store";
 
 export default function Sidebar({ collapsed, setCollapsed }: any) {
+  const { user } = useSelector((state: RootState) => state.auth);
+  const location = useLocation();
 
   const menuItems = [
-    { icon: HiHome, label: "Dashboard",path:"/instructor" },
-    { icon: FaPeopleGroup, label: "Students" ,path:"/instructor/students"},
-    { icon: MdGroups2, label: "Groups",path:"/instructor/groups" },
-     { icon: HiUser, label: "Quizz",path:"/instructor/quiz" },
-    { icon: HiDocumentText, label: "Results",path:"/instructor/result" },
+    { icon: HiHome, label: "Dashboard",path:"/dashboard" },
+    { icon: FaPeopleGroup, label: "Students" ,path:"/dashboard/students"},
+    { icon: MdGroups2, label: "Groups",path:"/dashboard/groups" },
+     { icon: HiUser, label: "Quizz",path:"/dashboard/quiz" },
+    { icon: HiDocumentText, label: "Results",path:"/dashboard/result" },
     
   ];
+  if (user?.role !== "Instructor") {
+  menuItems.splice(1, 1);
+  menuItems.splice(1, 1);
+}
+console.log(menuItems)
   useEffect(()=>{
    const handleResize = () => {
       if (window.innerWidth < 768) {
@@ -51,21 +60,29 @@ export default function Sidebar({ collapsed, setCollapsed }: any) {
 
         {/* Menu Items */}
         <nav className="mt-4">
-          {menuItems.map((item, index) => (
-            <NavLink
-            to={item.path}
-              key={index}
-              onClick={() => {
-                if(window.innerWidth < 768){
-                  setCollapsed(true)
-                }
-              }}
-              className="flex items-center p-6 hover:bg-[#FFEDDF] cursor-pointer border-b border-gray-200 "
-            >
-              <item.icon size={40}  className="bg-[#FFEDDF]  text-[#0D1321] p-1"/>
-              {!collapsed && <span className="ml-4">{item.label}</span>}
-            </NavLink>
-          ))}
+        {menuItems.map((item, index) => {
+  const isActive = location.pathname === item.path;
+
+  return (
+    <NavLink
+      to={item.path}
+      key={index}
+      onClick={() => {
+        if (window.innerWidth < 768) {
+          setCollapsed(true);
+        }
+      }}
+      className={`flex items-center p-6 cursor-pointer border-b border-gray-200
+        ${isActive ? "bg-[#FFEDDF]" : "hover:bg-[#FFEDDF]"}`}
+    >
+      <item.icon
+        size={40}
+        className="bg-[#FFEDDF] text-[#0D1321] p-1"
+      />
+      {!collapsed && <span className="ml-4">{item.label}</span>}
+    </NavLink>
+  );
+})}
         </nav>
       </div>
 

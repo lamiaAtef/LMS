@@ -21,6 +21,8 @@ import AddQuizComponent from "../ui/AddQuizComponent/AddQuizComponent.tsx";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../../../redux/store.ts";
 import NoData from "../../../../shared/components/NoData/NoData.tsx";
+import JoinQuiz from "../JoinQuiz/JoinQuiz.tsx";
+
 
 type QuizForm = Quiz & { date: string; time: string };
 
@@ -46,7 +48,9 @@ export default function Quiz() {
 
   const {user} = useSelector((state:RootState) => state.auth);
 
-
+// Join Quiz
+let [showJoinModal,setShowJoinModal] = useState(false)
+// End Join Quiz
 
 
     /////////////////////////start pagination
@@ -86,6 +90,24 @@ export default function Quiz() {
       setLoadingQuizCompleted(false);
     }
   };
+
+  const goExam = async(data:any) =>{
+    try{
+      let response = await axiosInstance.post(QUIZ_URLS.JOIN,data)
+      console.log(response,"res")
+      toast.success("login to Exam successfuly")
+      navigate(`/dashboard/quzies/${response?.data?.data?.quiz}`)
+
+    }
+    catch{
+      toast.error("can't go to Exam ")
+    } 
+    finally{
+
+    }
+    
+    
+  }
 
   const onSubmit = async (data: QuizForm) => {
     const schadule = `${data.date}T${data.time}:00`;
@@ -152,7 +174,7 @@ export default function Quiz() {
           <button
             id="question_bank"
             className="outline-none bg-[#fff] cursor-pointer w-50 me-4 p-5 border-2 border-[#00000033] rounded-lg flex items-center justify-center flex-col h-40"
-            onClick={()=>navigate("/instructor/questions")}
+            onClick={()=>navigate("/dashboard/questions")}
             >
             <BsFillSafe2Fill size={50} />
             Question Bank
@@ -162,7 +184,7 @@ export default function Quiz() {
          <button
             id="question_bank"
             className="outline-none bg-[#fff] cursor-pointer w-50 me-4 p-5 border-2 border-[#00000033] rounded-lg flex items-center justify-center flex-col h-40 mb-5"
-            onClick={()=>navigate("/instructor/questions")}
+            onClick={()=>setShowJoinModal(true)}
             >
             <BsFillSafe2Fill size={50} />
             Join Quiz
@@ -193,7 +215,7 @@ export default function Quiz() {
                   title={quiz.title}
                   subtitle={`${formatDate(quiz.schadule).day} | ${formatDate(quiz.schadule).time}`}
                   numberStudents={0}
-                  link={`/instructor/quiz/${quiz._id}`}
+                  link={`/dashboard/quiz/${quiz._id}`}
                   linkClassName="text-sm font-semibold hover:text-lime-600"
                   arrowClassName="text-lime-300"
                 />
@@ -204,45 +226,45 @@ export default function Quiz() {
           </div>
 
           {/* Completed Quizzes Table */}
-         <div className="border-[#00000033] border-2 mt-5 rounded-lg p-5 h-70 flex flex-col">
+         <div className="border-[#00000033] border-2 mt-5 rounded-lg p-5 flex flex-col">
   {/* Header */}
   <div className="flex justify-between mb-2">
     <h2 className="font-bold">Completed Quizzes</h2>
-    <Link to="/instructor/result" className="flex items-center">
+    <Link to="/dashboard/result" className="flex items-center">
       <span className="me-3">result</span>
       <FaArrowRight color="#C5D86D" />
     </Link>
   </div>
 
   {/* Table with scroll */}
-  <div className="overflow-auto flex-1">
-    <table className="w-full text-sm text-left">
-      <thead className="bg-black text-white uppercase text-xs  sticky top-0">
+  <div className="flex-1 mt-5">
+    <table className=" text-left border-separate border-spacing-y-2 w-full">
+      <thead className="bg-gray-900 text-white  text-sm font-thin">
         
         <tr>
-          <th className="px-6 py-4 font-semibold">Title</th>
-          <th className="px-6 py-4 font-semibold block ">Group Name</th>
-          <th className="px-6 py-4 font-semibold">Persons</th>
-          <th className="px-6 py-4 font-semibold">Date</th>
+          <th className="px-2 py-4 font-semibold">Title</th>
+          <th className="px-2 py-4 font-semibold block ">Group Name</th>
+          <th className="px-2 py-4 font-semibold">Persons</th>
+          <th className="px-2 py-4 font-semibold">Date</th>
         </tr>
       </thead>
       <tbody className="divide-y">
         {loadingQuizCompleted ? (
           [...Array(4)].map((_id, index) => (
             <tr key={index}>
-              <td className="px-6 py-4"><Skeleton width={96} height={16} /></td>
-              <td className="px-6 py-4"><Skeleton width={80} height={16} /></td>
-              <td className="px-6 py-4"><Skeleton width={40} height={16} /></td>
-              <td className="px-6 py-4"><Skeleton width={96} height={16} /></td>
+              <td className="px-2 py-4"><Skeleton width={96} height={16} /></td>
+              <td className="px-2 py-4"><Skeleton width={80} height={16} /></td>
+              <td className="px-2 py-4"><Skeleton width={40} height={16} /></td>
+              <td className="px-2 py-4"><Skeleton width={96} height={16} /></td>
             </tr>
           ))
         ) : currentQuizes.length > 0 ? (
           currentQuizes.map((completedQuiz) => (
-            <tr key={completedQuiz._id} className="hover:bg-gray-50 transition">
-              <td className="px-6 py-4 font-medium text-gray-900">{completedQuiz.title}</td>
-              <td className="px-6 py-4 ">{completedQuiz.group}</td>
-              <td className="px-6 py-4">{completedQuiz.participants}</td>
-              <td className="px-6 py-4">{new Date(completedQuiz.schadule).toLocaleDateString()}</td>
+            <tr key={completedQuiz._id} className="hover:bg-gray-200 my-2">
+              <td className="px-4 py-1 border border-gray-300  rounded-tl-lg rounded-bl-lg">{completedQuiz.title}</td>
+              <td className="px-4 py-1 border border-gray-300  rounded-tl-lg rounded-bl-lg">{completedQuiz.group}</td>
+              <td className="px-4 py-1 border border-gray-300  rounded-tl-lg rounded-bl-lg">{completedQuiz.participants}</td>
+              <td className="px-4 py-1 border border-gray-300  rounded-tl-lg rounded-bl-lg">{new Date(completedQuiz.schadule).toLocaleDateString()}</td>
             </tr>
           ))
         ) : (
@@ -277,9 +299,21 @@ export default function Quiz() {
         allGroups={allGroups}
       />
       </CustomDialog>
-
+      <CustomDialog 
+          title="Join Quiz" 
+          isOpen={showJoinModal}
+          onClose={() => setShowJoinModal(false)}
+          onSubmit={handleSubmit(goExam)} // سيتم استدعاء goExam عند الضغط على زر الصح
+          isLoading={loading}
+        >
+          <JoinQuiz 
+            register={register} 
+            errors={errors} 
+          />
+      </CustomDialog>
      
       <CodeModal isOpen={showCodeModal} onClose={() => setShowCodeModal(false)} code={codeValue} />
+       
        
       </>
   );

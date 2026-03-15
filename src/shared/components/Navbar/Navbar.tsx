@@ -18,13 +18,15 @@ const location = useLocation();
   const{logoutUser}=useLogout();
   const getPageTitle = () => {
   switch (location.pathname) {
-    case "/instructor/dashboard":
+    case "/dashboard/dashboard":
       return "Dashboard";
-    case "/instructor/quiz":
+    case "/dashboard/quiz":
       return "quiz";
-    case "/instructor/students":
+    case "/dashboard/students":
       return "Students";
-    case "/instructor/result":
+    case "/dashboard/groups":
+      return "Groups";
+    case "/dashboard/result":
       return "Results";
     default:
       return "Dashboard";
@@ -52,7 +54,7 @@ const location = useLocation();
   };
 }, []);
   return (
-    <nav className="bg-white shadow-md ">
+    <nav className="bg-white shadow-md fixed-top fixed w-screen pe-50 ">
       <div className="max-w-7xl mx-auto px-4">
 
         <div className="flex justify-between items-center h-16">
@@ -63,10 +65,10 @@ const location = useLocation();
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-6 text-gray-700">
             <div className="cursor-pointer">
-              <button className="flex items-center text-black px-4 py-2 rounded-2xl  font-bold border border-gray-300">
+              {/* <button className="flex items-center text-black px-4 py-2 rounded-2xl  font-bold border border-gray-300">
   <FaPlus className="mr-2" />
   New quiz
-</button>
+</button> */}
                </div>
              <div className="cursor-pointer border-l border-gray-300 pl-4">
               <h4 className="font-bold text-[#000000]">{user?.email}</h4>
@@ -90,7 +92,7 @@ const location = useLocation();
          <li  className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
           onClick={() => setIsOpen(false)}
          >
-           <Link  to="/instructor/profile">
+           <Link  to="/dashboard/profile">
                Profile
               </Link>
          </li>

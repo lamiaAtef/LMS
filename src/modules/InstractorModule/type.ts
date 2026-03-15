@@ -107,4 +107,28 @@ export interface ResultResponse{
   Quiz:Quiz[],
   participant:string[],
 }
+export interface QuizResponse {
+  closed_at: string;
+  code: string;
+  createdAt: string;
+  description: string;
+  difficulty: string;
+  duration: number;
+  group: string;
+  instructor: string;
+  questions_number: number;
+  schdule: string;
+  score_per_question: number;
+  status: string;
+  title: string;
+  type: string;
+  updatedAt: string;
+  schadule:string;
+  __v:number;
+  _id:string
+}
+export interface Result {
+  participants: string[];
+  quiz: QuizResponse;
+}
 

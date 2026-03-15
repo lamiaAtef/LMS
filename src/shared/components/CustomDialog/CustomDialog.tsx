@@ -44,8 +44,9 @@ export default function CustomDialog({
               disabled={isLoading}
               className="p-2 hover:scale-110 transition"
             >
-              {isLoading?<span className="inline-block w-8 h-8 border-4 border-gray-200 border-t-lime-500 rounded-full animate-spin"></span>
-:
+              {isLoading?
+              <HiCheck size={20} color="#ccc" />
+                  :
               <HiCheck size={20} />
               }
              

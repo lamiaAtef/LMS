@@ -11,8 +11,7 @@ const InstructorProtectedRoute: React.FC<InstructorProtectedRouteProps> = ({ chi
   const { user } = useSelector((state: RootState) => state.auth);
 
   if (!user) return <Navigate to="/" />; 
-  // لو حابب تتحقق من role
-  // if (user && user.role !== "Instructor") return <Navigate to="/notFound" />; 
+  if (user && user.role !== "Instructor") return <Navigate to="/dashboard" />; 
 
   return <>{children}</>;
 };

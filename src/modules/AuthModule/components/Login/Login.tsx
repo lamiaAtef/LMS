@@ -34,7 +34,7 @@ export default function Login() {
         let response = await axiosInstance.post<SuccessLoginResponse>(AUTH_URLS.LOGIN,data)
         localStorage.setItem("token",response.data.data.accessToken);
         dispatch(setCredentials({token: response.data.data.accessToken }));
-        navigate("/instructor/dashboard")
+        navigate("/dashboard")
         toast.success(response?.data?.message)
 
 

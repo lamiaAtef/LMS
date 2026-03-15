@@ -3,9 +3,11 @@ import UpdateQuestionModal from "../QuestionModule/QuestionModule";
 import { useEffect, useState } from "react";
 import { axiosInstance } from "../../../../config/httpClient";
 import { toast } from "react-toastify";
-import { BeatLoader } from "react-spinners";
+import { BeatLoader, ClipLoader } from "react-spinners";
 import { QUESTION_URLS } from "../../../../config/api.endPoint";
 import type { Question } from "../../type";
+import CustomPagination from "../../../../shared/components/CustomPagination/CustomPagination";
+import DeleteConfirmModal from "../../../../shared/components/DeleteConfirm/DeleteConfirm";
 
 
 
@@ -16,7 +18,7 @@ export default function Questions() {
        const [selectedId, setSelectedId] = useState<string | null>(null);
        const [isViewMode, setIsViewMode] = useState(false);
        console.log("selectedid",selectedId);
-
+      const [openModal, setOpenModal] = useState(false);
        const [questions,setQuestions]=useState<Question[]>([]);
        const getAllQuestions=async()=>{
         setLoading(true);
@@ -35,7 +37,16 @@ export default function Questions() {
         setLoading(false);
        }
 
-}
+        }
+        //pagination 
+      const [currentPage, setCurrentPage] = useState(1);
+      const studentsPerPage = 10;
+
+      const lastIndex = currentPage * studentsPerPage;
+      const firstIndex = lastIndex - studentsPerPage;
+      const currentQuestion = questions.slice(firstIndex, lastIndex);
+      const totalPages = Math.ceil(questions.length / studentsPerPage);
+
 
 
        const deleteQuestion=async(id:string)=>{
@@ -45,6 +56,8 @@ export default function Questions() {
          const response=await axiosInstance.delete(QUESTION_URLS.DELETE_QUESTION(id));
          toast.success(response?.data?.message);
          getAllQuestions();
+         setOpenModal(false);   
+        setSelectedId(null);
        } catch (error:any) {
 
         toast.error(error?.response?.data?.message);
@@ -56,8 +69,9 @@ export default function Questions() {
         getAllQuestions();
        },[])
          if(loading) return<div className=' flex items-center justify-center h-screen '>
-   <BeatLoader size={20} color='#288131'  />
-   </div>
+         <ClipLoader size={40} color='#288131'  />
+          </div>
+
   return (
     <>
     <UpdateQuestionModal open={open} onClose={()=>setOpen(false)}
@@ -96,13 +110,14 @@ export default function Questions() {
       </thead>
 
       <tbody className="divide-y">
-        {questions.map((question:Question) => (
+        {currentQuestion.map((question:Question) => (
           <tr key={question._id} className="hover:bg-gray-200 my-2">
             <td className="px-4 py-1 border border-gray-300  rounded-tl-lg rounded-bl-lg ">{question?.title}</td>
             <td className="px-4 py-3  border border-gray-300">{question.description}</td>
                <td className="px-4 py-3  border border-gray-300">{question?.difficulty}</td>
             <td className="px-4 py-3  border border-gray-300">ppp</td>
-            <td className="px-4 py-3 border border-gray-300 flex gap-3 text-[#FB7C19] cursor-pointer">
+           <td className="px-4 py-3 border border-gray-300  text-[#FB7C19] cursor-pointer">
+               <div className="flex items-center gap-3">
                 <FaRegEye  size={23} onClick={()=>{
                    setSelectedId(question._id); // نحفظ السؤال الحالي
   setIsViewMode(true);
@@ -118,10 +133,14 @@ export default function Questions() {
 
 
                 }
-  }/>
-                <FaRegTrashAlt onClick={()=>deleteQuestion(question._id)}  size={23}/>
+                }/>
+                 <FaRegTrashAlt  onClick={() => {
+                  setSelectedId(question._id);
+                  setOpenModal(true);
+                }} size={23}/>
+                  </div>
             </td>
-
+      
 
 
           </tr>
@@ -137,8 +156,21 @@ export default function Questions() {
       </tbody>
 
     </table>
-  </div>
-</div>
+     <CustomPagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={(page) => setCurrentPage(page)}
+     />
+       <DeleteConfirmModal
+             isOpen={openModal}
+             title="Delete Question"
+             message="Are you sure you want to delete this Question?"
+             onConfirm={() => selectedId && deleteQuestion(selectedId)}
+             onCancel={() => setOpenModal(false)}
+           />
+         
+    </div>
+    </div>
     </>
   )
 }

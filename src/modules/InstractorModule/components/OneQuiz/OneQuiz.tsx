@@ -11,6 +11,7 @@ import { CiClock2 } from "react-icons/ci";
 import { SlCalender } from "react-icons/sl";
 import type { Quiz } from '../../type'
 import Skeleton from 'react-loading-skeleton'
+import DeleteConfirmModal from '../../../../shared/components/DeleteConfirm/DeleteConfirm'
 
 
 export default function OneQuiz() {
@@ -19,6 +20,8 @@ export default function OneQuiz() {
     const[loading,setLoading] = useState(false);
     const[quizloading,setQuizLoading] = useState(false);
     const navigate = useNavigate();
+    const [openModal, setOpenModal] = useState(false);
+
     
     const [isEdit, setIsEdit] = useState(false) // this state to know if it's view or update case
     console.log(id)
@@ -59,7 +62,7 @@ export default function OneQuiz() {
       try{
           let response = await axiosInstance.put(QUIZ_URLS.UPDATE_QUIZ(id),data)
             toast.success("Quiz update successfully")
-            navigate('/instructor/quiz')
+            navigate('/dashboard/quiz')
           
           console.log(response,"response")
       }
@@ -81,7 +84,7 @@ export default function OneQuiz() {
       
       console.log(response,"response")
       toast.success("Quiz deleted successfully")
-      navigate('/instructor/quiz')
+      navigate('/dashboard/quiz')
 
       }
       catch(error:any){
@@ -90,6 +93,7 @@ export default function OneQuiz() {
       }
       finally{
         setLoading(false)
+        setOpenModal(false);   
       }
     }
     const formatDate = (dateString:string) => {
@@ -111,7 +115,7 @@ export default function OneQuiz() {
   return (
     <div className='ms-2 lg:ms-4 '>
         <div className='flex items-center'> 
-            <Link to="/instructor/quiz" className='px-3  font-bold hover:text-[#C5D86D]'>Quizzes</Link> 
+            <Link to="/dashboard/quiz" className='px-3  font-bold hover:text-[#C5D86D]'>Quizzes</Link> 
              <FaAngleDoubleRight color='#C5D86D' />
              <span className='mx-3 inline-flex font-semibold'>Data structures {quiz?.title}</span>
         </div>
@@ -225,7 +229,7 @@ export default function OneQuiz() {
                           </div>
                           {/* Edit and Delete Buttons */}
                           <div className='flex justify-between mt-3'>
-                            <button  disabled={loading} onClick={deleteQuiz} type="button" className='bg-white-500 text-red-500 rounded-xl border-1 border-[red] hover:bg-red-500 hover:text-white  px-5 py-2'>
+                            <button  disabled={loading} onClick={()=>setOpenModal(true)} type="button" className='bg-white-500 text-red-500 rounded-xl border-1 border-[red] hover:bg-red-500 hover:text-white  px-5 py-2'>
                              {loading?"Delete ..." : "Delete"} 
                             </button>
                              <button disabled={loading} type='submit' className='bg-black text-white rounded-xl  border-1 border-[black] hover:bg-white hover:text-black px-7 py-2 '>
@@ -234,12 +238,20 @@ export default function OneQuiz() {
                             </button>
                           </div>
            </form>
+           <DeleteConfirmModal
+                 isOpen={openModal}
+                 title="Delete this Quiz"
+                 message="Are you sure you want to delete this Quiz?"
+                 onConfirm={() =>  deleteQuiz()}
+                 onCancel={() => setOpenModal(false)}
+               />
            </>
        )}
 
 
         </div>
     </div>
+     
   )
 }
 

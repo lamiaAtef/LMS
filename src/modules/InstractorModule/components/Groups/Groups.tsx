@@ -6,6 +6,7 @@ import { GROUPS_URLS, STUDENT_URLS } from "../../../../config/api.endPoint";
 import type { CreateGroupPayload, Group, Student } from "../../type";
 import { toast } from "react-toastify";
 import DeleteConfirmModal from "../../../../shared/components/DeleteConfirm/DeleteConfirm";
+import { ClipLoader } from "react-spinners";
 
 
 
@@ -149,7 +150,7 @@ export default function Groups() {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-[60vh]">
-        <div className="w-10 h-10 border-4 border-lime-500 border-t-transparent rounded-full animate-spin"></div>
+        <ClipLoader size={40} color='#288131'  />
       </div>
     );
   }

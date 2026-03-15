@@ -21,8 +21,9 @@ import Questions from "./modules/InstractorModule/components/Questions/Questions
 import Result from "./modules/InstractorModule/components/Result/Result";
 import DashBoard from "./modules/InstractorModule/components/DashBoard/DashBoard";
 import Students from "./modules/InstractorModule/components/Students/Students";
-import Quzies from "./modules/StudentModule/components/Quzies/Quzies";
 import ResultQuiz from "./modules/StudentModule/components/ResultQuiz/ResultQuiz";
+import Quzies from "./modules/StudentModule/components/Quzies/Quzies";
+
 
 
 
@@ -43,33 +44,25 @@ const routes = createBrowserRouter(
         ]
       },
        {
-        path:"/instructor",
-        element:<InstructorProtectedRoute><MasterLayout/></InstructorProtectedRoute>,
+        path:"/dashboard",
+        element:<MasterLayout/>,
         errorElement:<NotFound/>,
         children:[
           {index:true,element:<DashBoard/>},
           {path:"dashboard",element:<DashBoard/>},
           {path:"quiz" , element:<Quiz/>},
           {path:"quiz/:id" , element:<OneQuiz/>},
-          {path:"groups" , element:<Groups/>},
+          {path:"groups" , element:<InstructorProtectedRoute><Groups/></InstructorProtectedRoute>},
           // {path:"student-list",element:<StudentList/>},
           {path:"profile", element:<Profile/>},
-          {path:"questions",element:<Questions/>},
+          {path:"questions",element:<InstructorProtectedRoute><Questions/></InstructorProtectedRoute>},
           {path:"result",element:<Result/>},
-          {path:"students", element:<Students/>},
-         
-        ]
-      },
-      {
-        path:"/student",
-        element:<MasterLayout/>,
-        errorElement:<NotFound/>,
-        children:[
+          {path:"students", element:<InstructorProtectedRoute><Students/></InstructorProtectedRoute>},
           {path:"quzies/:quizId",element:<Quzies/>},
           {path:"quzies/:quizId/result",element:<ResultQuiz/>}
-
         ]
-      }
+      },
+     
 
 
     ]

@@ -17,6 +17,8 @@ import studentImg6 from "../../../../assets/images/StudentsImgs/studentImg6.jpg"
 import InfoCard from "../../../../shared/components/InfoCard/InfoCard";
 import StudentModal from "../Students/StudentModal";
 import NoData from "../../../../shared/components/NoData/NoData";
+import { useSelector } from "react-redux";
+import type { RootState } from "../../../../redux/store";
 
 
 
@@ -35,6 +37,9 @@ export default function DashBoard() {
   const [studentIndex, setStudentIndex] = useState(0);
 
   const quizzesImgs = [quizImg1,quizImg2];
+
+  const { user } = useSelector((state: RootState) => state.auth);
+  
 
   const studentsImgs = [studentImg1, studentImg2, studentImg3, studentImg4, studentImg5, studentImg6];
 
@@ -104,7 +109,8 @@ export default function DashBoard() {
 
    useEffect(()=>{
     getFiveIncomingQuizzes();
-    topFiveStudents();
+
+    { (user && user.role == "Instructor") && topFiveStudents();}
 
    },[])
 
@@ -116,7 +122,7 @@ export default function DashBoard() {
     <div className="border-2 border-gray-200 rounded-2xl p-4">
       <div className="flex items-center justify-between mb-2">
         <h2 className="text-2xl font-bold mb-3">Upcoming 5 quizes</h2>
-        <Link to="/instructor/quiz" className="flex items-center text-md font-semibold hover:text-lime-600">Quiz directory <FaArrowRight className="text-lime-300 ml-1"/></Link>
+        <Link to="/dashboard/quiz" className="flex items-center text-md font-semibold hover:text-lime-600">Quiz directory <FaArrowRight className="text-lime-300 ml-1"/></Link>
       </div>
       {loadingQuiz ?(
         Array.from({length:3}).map((_, i)=>(
@@ -133,7 +139,7 @@ export default function DashBoard() {
             title={quiz.title}
             subtitle={`${day} | ${time}`}
             numberStudents={0}
-            link={`/instructor/quiz/${quiz._id}`}
+            link={`/dashboard/quiz/${quiz._id}`}
             linkClassName="text-sm font-semibold hover:text-lime-600"
             arrowClassName="text-lime-300"
           />
@@ -142,10 +148,11 @@ export default function DashBoard() {
       }) :<NoData/>}
       
     </div>
+    {(user && user.role == "Instructor") &&
     <div className="border-2 border-gray-200 rounded-2xl p-4">
       <div className="flex items-center justify-between mb-2">
         <h2 className="text-2xl font-bold mb-3">Top 5 Students</h2>
-        <Link to="/instructor/students" className="flex items-center text-md font-semibold hover:text-lime-600">All Students<FaArrowRight className="text-lime-300 ml-1"/></Link>
+        <Link to="/dashboard/students" className="flex items-center text-md font-semibold hover:text-lime-600">All Students<FaArrowRight className="text-lime-300 ml-1"/></Link>
       </div>
 
       {loadingStudents ?(
@@ -172,6 +179,7 @@ export default function DashBoard() {
 
       
     </div>
+    }
    </div>
 
    <StudentModal
