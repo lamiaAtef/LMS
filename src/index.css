@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+.input-focus-gray:focus {
+    border-color: #cdd3dd; 
+    box-shadow: none;       
+    outline: none;         
+  }
+
+.input-placeholder-gray::placeholder {
+    color: #6B7280; 
+} 
